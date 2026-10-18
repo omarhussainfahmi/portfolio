@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+node scripts/check-public-source.mjs
+scanner="$(git config --get portfolio.gitleaksPath || true)"
+if [ -z "$scanner" ]; then scanner="$(command -v gitleaks || true)"; fi
+if [ -z "$scanner" ]; then
+  echo "Install Gitleaks before committing, or configure portfolio.gitleaksPath."
+  exit 1
+fi
+"$scanner" git . --pre-commit --staged --redact=100 --no-banner
