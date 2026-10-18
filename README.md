@@ -1,7 +1,6 @@
 # Omar Hussain Fahmi - Portfolio
 
-[Visit the live portfolio](https://omar-hussain-fahmi-portfolio.pages.dev/) · [Next Chapter case study](https://omar-hussain-fahmi-portfolio.pages.dev/case-studies/next-chapter/)
-
+[Visit the live portfolio](https://omar-hussain-fahmi-portfolio.pages.dev/) 
 ![Omar Hussain Fahmi portfolio](public/og.png)
 
 My personal portfolio brings together full-stack development, SAP Fiori, ABAP Cloud, and UI/UX work. It presents selected projects, technical case studies, professional experience, education, and certifications, with a focused recruiter view for a quick introduction.
