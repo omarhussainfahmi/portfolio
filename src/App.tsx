@@ -1,4 +1,4 @@
-import { Component, Suspense, lazy, startTransition, useEffect, useState } from 'react';
+import { Component, Suspense, lazy, startTransition, useEffect, useRef, useState } from 'react';
 import type { ReactNode, ComponentType } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import {
@@ -70,7 +70,10 @@ export default function App({ pages }: { pages?: ServerPages } = {}) {
   const [recruiter, setRecruiter] = useState(false);
   const [tool, setTool] = useState<'palette' | 'terminal' | null>(null);
   const [active, setActive] = useState('');
-  const [progress, setProgress] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const menuRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     startTransition(() => {
       setTheme(document.documentElement.dataset.theme || 'dark');
@@ -120,28 +123,60 @@ export default function App({ pages }: { pages?: ServerPages } = {}) {
     }
   }, [location]);
   useEffect(() => {
-    const onScroll = () => {
+    let frame = 0;
+    const updateScroll = () => {
+      frame = 0;
       const total = document.documentElement.scrollHeight - innerHeight;
-      setProgress(total > 0 ? scrollY / total : 0);
+      const progress = total > 0 ? Math.max(0, Math.min(1, scrollY / total)) : 0;
+      if (progressRef.current) progressRef.current.style.transform = `scaleX(${progress})`;
       const found = Array.from(document.querySelectorAll('main section[id]'))
         .filter((el) => el.getBoundingClientRect().top < 180)
         .at(-1);
-      setActive(found?.id || '');
+      // Keep scroll decoration from interrupting hydration of deferred sections.
+      startTransition(() => {
+        setScrolled(progress > 0.01);
+        setActive(found?.id || '');
+      });
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(updateScroll);
     };
     const key = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         setTool((v) => (v === 'palette' ? null : 'palette'));
       }
-      if (e.key === 'Escape') setMenu(false);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
     window.addEventListener('keydown', key);
     return () => {
+      cancelAnimationFrame(frame);
       window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
       window.removeEventListener('keydown', key);
     };
   }, []);
+  useEffect(() => {
+    if (!menu) return;
+    const outside = (event: Event) => {
+      if (!headerRef.current?.contains(event.target as Node)) setMenu(false);
+    };
+    const escape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMenu(false);
+        menuRef.current?.focus();
+      }
+    };
+    document.addEventListener('pointerdown', outside);
+    document.addEventListener('focusin', outside);
+    document.addEventListener('keydown', escape);
+    return () => {
+      document.removeEventListener('pointerdown', outside);
+      document.removeEventListener('focusin', outside);
+      document.removeEventListener('keydown', escape);
+    };
+  }, [menu]);
   const toggleTheme = () => {
     const next = theme === 'dark' ? 'light' : 'dark';
     setTheme(next);
@@ -168,8 +203,11 @@ export default function App({ pages }: { pages?: ServerPages } = {}) {
         <a href="#main" className="skip-link">
           Skip to content
         </a>
-        <div className="scroll-progress" style={{ transform: `scaleX(${progress})` }} />
-        <header className={progress > 0.01 ? 'header scrolled' : 'header'}>
+        <div ref={progressRef} className="scroll-progress" style={{ transform: 'scaleX(0)' }} />
+        <header
+          ref={headerRef}
+          className={scrolled ? 'header scrolled' : 'header'}
+        >
           <div className="header-inner">
             <Link className="brand" to="/" aria-label="Omar Hussain Fahmi home">
               <span className="brand-mark">
@@ -230,6 +268,7 @@ export default function App({ pages }: { pages?: ServerPages } = {}) {
                 aria-label={menu ? 'Close navigation' : 'Open navigation'}
                 aria-expanded={menu}
                 aria-controls="full-navigation"
+                ref={menuRef}
                 onClick={() => setMenu((v) => !v)}
               >
                 {menu ? <X size={20} /> : <Menu size={20} />}

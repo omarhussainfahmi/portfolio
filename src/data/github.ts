@@ -21,6 +21,42 @@ export interface GitHubSnapshot {
   events: { id: string; type: string; repo: { name: string }; created_at: string }[];
   fetchedAt: number;
 }
+export function isGithubSnapshot(value: unknown): value is GitHubSnapshot {
+  if (!value || typeof value !== 'object') return false;
+  const data = value as GitHubSnapshot;
+  const count = (n: unknown) => typeof n === 'number' && Number.isInteger(n) && n >= 0;
+  return (
+    !!data.profile &&
+    [data.profile.public_repos, data.profile.followers, data.profile.following].every(count) &&
+    Number.isFinite(data.fetchedAt) &&
+    data.fetchedAt > 0 &&
+    data.fetchedAt <= Date.now() &&
+    Array.isArray(data.repos) &&
+    data.repos.length <= 100 &&
+    data.repos.every(
+      (r) =>
+        r &&
+        count(r.id) &&
+        typeof r.name === 'string' &&
+        r.name.length > 0 &&
+        r.html_url === `${githubConfig.profileUrl}/${encodeURIComponent(r.name)}` &&
+        (r.description === null || typeof r.description === 'string') &&
+        (r.language === null || typeof r.language === 'string') &&
+        count(r.stargazers_count) &&
+        Number.isFinite(Date.parse(r.updated_at)),
+    ) &&
+    Array.isArray(data.events) &&
+    data.events.length <= 5 &&
+    data.events.every(
+      (e) =>
+        e &&
+        typeof e.id === 'string' &&
+        typeof e.type === 'string' &&
+        typeof e.repo?.name === 'string' &&
+        Number.isFinite(Date.parse(e.created_at)),
+    )
+  );
+}
 export async function fetchGithub(signal: AbortSignal): Promise<GitHubSnapshot> {
   const get = async (path: string) => {
     const response = await fetch(`${githubConfig.apiOrigin}${path}`, {
@@ -40,9 +76,14 @@ export async function fetchGithub(signal: AbortSignal): Promise<GitHubSnapshot> 
     get(`/users/${githubConfig.username}/repos?sort=updated&per_page=100`),
     get(`/users/${githubConfig.username}/events/public?per_page=5`),
   ]);
-  if (!Number.isFinite(profile.public_repos) || !Array.isArray(repos) || !Array.isArray(events))
+  if (
+    !profile ||
+    !Array.isArray(repos) ||
+    !repos.every((r) => r && typeof r.name === 'string') ||
+    !Array.isArray(events)
+  )
     throw new Error('GitHub returned an unexpected response.');
-  return {
+  const snapshot = {
     profile: {
       public_repos: profile.public_repos,
       followers: profile.followers,
@@ -58,7 +99,7 @@ export async function fetchGithub(signal: AbortSignal): Promise<GitHubSnapshot> 
       updated_at: r.updated_at,
     })),
     events: events
-      .filter((e: GitHubSnapshot['events'][number]) => e.repo?.name && e.created_at)
+      .filter((e: GitHubSnapshot['events'][number]) => e?.repo?.name && e.created_at)
       .map((e: GitHubSnapshot['events'][number]) => ({
         id: e.id,
         type: e.type,
@@ -67,4 +108,6 @@ export async function fetchGithub(signal: AbortSignal): Promise<GitHubSnapshot> 
       })),
     fetchedAt: Date.now(),
   };
+  if (!isGithubSnapshot(snapshot)) throw new Error('GitHub returned an unexpected response.');
+  return snapshot;
 }

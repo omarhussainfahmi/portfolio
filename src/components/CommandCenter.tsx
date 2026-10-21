@@ -75,6 +75,11 @@ function Palette({ onClose, toggleTheme, toggleRecruiter, setMode }: Props) {
     { name: 'Terminal', run: () => setMode('terminal') },
   ];
   const filtered = items.filter((i) => i.name.toLowerCase().includes(query.toLowerCase()));
+  useEffect(() => {
+    document
+      .getElementById(`command-${index}`)
+      ?.scrollIntoView({ block: 'nearest', behavior: 'instant' });
+  }, [index, query]);
   const choose = (i: number) => {
     const item = filtered[i];
     if (!item) return;
@@ -91,7 +96,7 @@ function Palette({ onClose, toggleTheme, toggleRecruiter, setMode }: Props) {
         autoFocus
         className="command-input"
         role="combobox"
-        aria-expanded="true"
+        aria-expanded={filtered.length > 0}
         aria-controls="command-results"
         aria-autocomplete="list"
         aria-activedescendant={filtered[index] ? `command-${index}` : undefined}
@@ -104,11 +109,15 @@ function Palette({ onClose, toggleTheme, toggleRecruiter, setMode }: Props) {
         onKeyDown={(e) => {
           if (e.key === 'ArrowDown') {
             e.preventDefault();
-            setIndex((i) => Math.min(i + 1, filtered.length - 1));
+            setIndex((i) => Math.max(0, Math.min(i + 1, filtered.length - 1)));
           }
           if (e.key === 'ArrowUp') {
             e.preventDefault();
             setIndex((i) => Math.max(0, i - 1));
+          }
+          if (e.key === 'Home' || e.key === 'End') {
+            e.preventDefault();
+            setIndex(e.key === 'Home' ? 0 : Math.max(0, filtered.length - 1));
           }
           if (e.key === 'Enter') {
             e.preventDefault();
@@ -131,9 +140,9 @@ function Palette({ onClose, toggleTheme, toggleRecruiter, setMode }: Props) {
             <ArrowUpRight size={16} />
           </button>
         ))}
-        {filtered.length === 0 && <p>No commands found.</p>}
       </div>
-      <p className="command-hint">Up / Down Navigate · Enter Select · Esc Close</p>
+      {filtered.length === 0 && <p role="status">No commands found.</p>}
+      <p className="command-hint">Up / Down or Home / End · Enter Select · Esc Close</p>
     </Modal>
   );
 }

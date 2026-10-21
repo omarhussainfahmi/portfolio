@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Github, Star } from 'lucide-react';
-import { fetchGithub, githubConfig } from '../data/github';
+import { fetchGithub, githubConfig, isGithubSnapshot } from '../data/github';
 import type { GitHubSnapshot } from '../data/github';
 import { ExternalLink, Tags } from './ui';
 import { projects } from '../data/projects';
@@ -45,13 +45,8 @@ export default function GithubSection() {
       try {
         const saved = localStorage.getItem(githubConfig.cacheKey);
         if (saved) {
-          const cache = JSON.parse(saved) as GitHubSnapshot;
-          if (
-            cache.profile &&
-            Array.isArray(cache.repos) &&
-            Array.isArray(cache.events) &&
-            Date.now() - cache.fetchedAt < githubConfig.cacheMs
-          ) {
+          const cache: unknown = JSON.parse(saved);
+          if (isGithubSnapshot(cache) && Date.now() - cache.fetchedAt < githubConfig.cacheMs) {
             if (valid) setData(cache);
             return;
           }

@@ -1,0 +1,23 @@
+# Applicable reel improvements - 21 October 2026
+
+The ten Instagram references were reviewed previously through public captions, on-screen text and sampled footage. Audio was not transcribed and every frame was not inspected. This implementation applies verified, relevant principles to the existing portfolio; it does not endorse promotional tools, legal penalty claims or unverified spoken lists.
+
+## Review and decisions
+
+1. [Dashboard hierarchy](https://www.instagram.com/reel/DeoxA_vzRbo/): retain this portfolio's own typography, section numbering, responsive cards and identity. Do not copy a sales dashboard or invent statistics.
+2. [Design workflow](https://www.instagram.com/reel/DerxrOmTkCt/) and 3. [related design workflow](https://www.instagram.com/reel/DevPIcApMj8/): reuse the established component system, check keyboard interaction and test real rendered pages. No promoted skills, MCP integrations or competing styling systems were installed.
+4. [Launch checks](https://www.instagram.com/reel/Ddi5_OkoiDa/): existing privacy/terms, contact links and explicitly requested LinkedIn media remain. There is no marketing-message collection workflow. The complete five-item list and jurisdiction-specific legal claims were not verified.
+5. [Performance checklist](https://www.instagram.com/reel/DdP1ySxAsxT/): scroll progress previously updated React state on every scroll event, rerendering the page. It now writes the progress transform through a ref, coalesces scroll/resize work with requestAnimationFrame, and changes React state only for the header threshold or active section. Pending frames and listeners are cleaned up. Existing lazy route chunks, prerendering, self-hosted fonts, optimized assets and GitHub caching remain. The small project/certificate collections do not justify pagination or a new database.
+6. [Engineering foundations](https://www.instagram.com/reel/DZLDPGExR-1/): preserve React/TypeScript and existing public API boundaries, Git and tests. Do not add database/RLS/account infrastructure to a static portfolio. Detailed narration was not verified.
+7. [App Store advice](https://www.instagram.com/reel/Dc_QIKNxLHe/): native-store submission and payment rules do not apply to this browser portfolio. No Apple login or purchases added; the entire rejection list was not transcribed.
+8. [Security checklist](https://www.instagram.com/reel/DYiqd6pJ3d8/): no private API key is needed or exposed. GitHub network/cache data now validates metric counts, timestamps, repository links and collection shapes, rejecting future-dated or corrupt caches and malformed provider payloads. No secrets, new public endpoints or broader permissions were introduced. Dependency audit identified Vite 7.3.6 development-tool advisories; the compatible 7.3.7 patch resolves the reported audit findings. See [advisory 1](https://github.com/advisories/GHSA-698v-4r3x-3vcv), [advisory 2](https://github.com/advisories/GHSA-r825-w8mm-5pxw), [advisory 3](https://github.com/advisories/GHSA-587h-7wmj-h5pm). This does not establish an exploit of the deployed static site.
+9. [Planning documents](https://www.instagram.com/reel/DevDk-Bt7BP/): this review records applicable requirements and verification; it does not invent the four planning-document titles that were not established from the sampled footage.
+10. [Website launch checklist](https://www.instagram.com/reel/DcKiRe3TvdB/): existing metadata, icons, real contact links, custom 404, mobile CTA, both themes and accessible dialogs were retained. The command palette adds Home/End navigation, keeps the active option visible and handles empty results. The navigation menu closes with Escape (returning focus), outside pointer interaction or focus moving outside the header.
+
+## Boundaries and verification
+
+No personal content, contact details, downloads, project claims, analytics preferences or production audience changed. No fake records or metrics were added. Existing publication checks continue excluding private documents and internal records from GitHub, while the owner's existing live downloads remain in the website build.
+
+Requirements: preserve all current routes and recruiter mode, keep keyboard selection visible, avoid full-tree updates for individual progress pixels, validate optional cached data safely, preserve server-free operation, and maintain both themes and mobile layouts. Test fixtures are isolated from production content.
+
+Verification results and deployment status are recorded in the README. Existing dated Lighthouse results remain dated observations; this work does not claim a new two-second load guarantee or certification on every phone.
