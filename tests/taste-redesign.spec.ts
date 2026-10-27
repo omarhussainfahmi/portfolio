@@ -1,4 +1,25 @@
 import { test, expect } from '@playwright/test';
+test('skill perspectives show real evidence and remain operable with the keyboard', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const overview = page.getByRole('complementary', { name: 'Explore my work and skills' });
+  await expect(overview.getByRole('heading')).toHaveText('From search to bookshelf.');
+  const sap = overview.getByRole('button', { name: 'SAP', exact: true });
+  await sap.focus();
+  await page.keyboard.press('Enter');
+  await expect(sap).toHaveAttribute('aria-pressed', 'true');
+  await expect(overview.getByRole('heading')).toHaveText('Beyond the interface.');
+  await expect(overview.getByRole('link')).toHaveAttribute('href', '/#certifications');
+  await overview.getByRole('button', { name: 'UI/UX', exact: true }).click();
+  await expect(overview).toContainText('shared interface design, and testing with users');
+  await expect(overview.getByRole('img', { name: /Genre selection/ })).toHaveAttribute(
+    'src',
+    '/images/next-chapter-genres.webp',
+  );
+  await overview.getByRole('button', { name: 'Web development', exact: true }).click();
+  await expect(overview.getByRole('heading')).toHaveText('From search to bookshelf.');
+});
 test('redesign preserves the requested front-card skills and experience copy', async ({ page }) => {
   await page.goto('/');
   for (const recruiter of [false, true]) {

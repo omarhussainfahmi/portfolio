@@ -25,10 +25,10 @@ export default function ProjectVideo({ project }: { project: Project }) {
         >
           <img
             className="video-poster"
-            src="/images/next-chapter-discovery.webp"
+            src="/images/next-chapter-landing.webp"
             width="1200"
             height="675"
-            alt="Genre discovery in Next Chapter"
+            alt="Next Chapter landing page from the team project report"
             loading="lazy"
           />
           <span className="video-play">

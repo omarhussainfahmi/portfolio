@@ -24,10 +24,23 @@ export default function ProjectCard({ project }: { project: Project; index?: num
             <small>
               {project.id === 'next-chapter'
                 ? 'Discover your next read'
-                : 'An exploration in layers'}
+                : 'Controllers, services, and data.'}
             </small>
           </span>
-          <span className="art-caption">Project identity · conceptual visual</span>
+          {project.id === 'asp-net-project' && (
+            <div className="mvc-flow" aria-label="MVC request flow">
+              <span>Request</span>
+              <ArrowRight size={18} />
+              <span>Controller</span>
+              <ArrowRight size={18} />
+              <span>View</span>
+            </div>
+          )}
+          <span className="art-caption">
+            {project.id === 'asp-net-project'
+              ? '.NET 8 / Entity Framework Core / SQL Server'
+              : 'Project identity · conceptual visual'}
+          </span>
         </Link>
       )}
       <div className="project-body">
@@ -37,7 +50,11 @@ export default function ProjectCard({ project }: { project: Project; index?: num
           </Link>
         </h3>
         <p className="project-category">{project.category}</p>
-        <p>{project.description}</p>
+        <p>
+          {project.id === 'next-chapter'
+            ? 'Discover books, organize reading lists, and explore recommendations powered by Google Books.'
+            : 'An MVC learning sample with service and repository layers, EF Core data access, and PDF generation.'}
+        </p>
         <Tags items={project.cardTechnologies ?? project.technologies.slice(0, 4)} />
         <div className="project-links">
           <Link to={`/projects/${project.slug}`}>

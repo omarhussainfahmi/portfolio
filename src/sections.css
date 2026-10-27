@@ -2,29 +2,6 @@
   max-width: 650px;
   margin-bottom: 32px;
 }
-.skills-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-.skill-card {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 40px;
-  padding: 26px 32px;
-  background: var(--surface);
-}
-.skill-card h3 {
-  margin: 0;
-  font-size: var(--lead);
-}
-.skill-card .tags {
-  margin: 0;
-  background: none;
-}
-.skill-card .tags span {
-  background: var(--bg);
-}
 .tech-stack {
   padding-top: 48px;
 }
@@ -67,11 +44,6 @@
   flex-direction: column;
   gap: 52px;
 }
-.timeline-row {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 40px;
-}
 .timeline-row h3 {
   font-size: var(--lead);
   margin-bottom: 12px;
@@ -101,33 +73,6 @@
   width: 100%;
   aspect-ratio: 1.55;
   object-fit: cover;
-}
-.certificate-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px 32px;
-}
-.certificate-card {
-  display: block;
-  text-align: left;
-  background: var(--surface);
-  padding: 26px;
-  min-width: 0;
-  transition: transform 0.18s;
-}
-.certificate-card:hover {
-  background: var(--surface2);
-}
-.certificate-card > span {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  gap: 16px;
-}
-.certificate-card strong {
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.6;
 }
 .certificate-context {
   font-size: 14px;
@@ -734,15 +679,6 @@
   }
 }
 @media (max-width: 750px) {
-  .skill-card {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 24px;
-  }
-  .timeline-row {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
   .timeline {
     gap: 48px;
   }
@@ -752,13 +688,6 @@
   }
   .case-promo h3 {
     font-size: 32px;
-  }
-  .certificate-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  .certificate-card {
-    padding: 24px;
   }
   .education-card {
     padding: 24px;
@@ -910,29 +839,6 @@
     margin-bottom: 48px;
   }
 }
-.timeline-row {
-  background: var(--surface);
-  padding: 32px;
-  grid-template-columns: 1fr 2fr;
-}
-.timeline-row .tags span {
-  background: var(--bg);
-}
-.certificate-card {
-  background: transparent;
-  padding: 24px 0;
-}
-.certificate-card:hover {
-  background: transparent;
-  color: var(--accent);
-}
-.certificate-card strong {
-  font-size: 18px;
-  line-height: 1.5;
-}
-.certificate-card > span {
-  gap: 12px;
-}
 .certificate-meta {
   font-size: 14px;
 }
@@ -949,19 +855,6 @@
   font-size: 16px;
 }
 @media (max-width: 750px) {
-  .timeline-row {
-    grid-template-columns: 1fr;
-    padding: 24px;
-  }
-  .certificate-card {
-    padding: 20px 0;
-  }
-  .certificate-card strong {
-    font-size: 16px;
-  }
-  .certificate-grid {
-    gap: 8px;
-  }
   .github-stats {
     font-size: 18px;
     padding: 24px;
@@ -1014,5 +907,201 @@
   }
   .detail-hero {
     padding-top: 28px;
+  }
+}
+
+/* Capabilities, career evidence, and credentials each have their own rhythm. */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 36px;
+}
+.skill-card {
+  padding: 0;
+  min-width: 0;
+}
+.skill-card h3 {
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+.skill-card .tags {
+  gap: 10px;
+  margin: 0;
+}
+.skill-card .tags span {
+  background: var(--surface);
+}
+.timeline {
+  gap: 40px;
+}
+.timeline-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 48px;
+  padding: 0;
+  background: none;
+}
+.timeline-row h3 {
+  font-size: 26px;
+}
+.timeline-date {
+  font-size: 18px;
+}
+.timeline-row .tags {
+  margin-bottom: 0;
+}
+.certificate-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 48px;
+}
+.certificate-card {
+  text-align: left;
+  padding: 24px 0;
+  background: transparent;
+  min-width: 0;
+}
+.certificate-card > span {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 12px;
+}
+.certificate-card strong {
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+.certificate-card:hover {
+  color: var(--accent);
+}
+.certificate-meta {
+  padding-top: 8px;
+}
+#certifications .filters button {
+  background: var(--bg);
+}
+#certifications .filters button[aria-pressed='true'] {
+  background: var(--text);
+  color: var(--bg);
+}
+.detail-hero {
+  max-width: 1100px;
+  padding-bottom: 32px;
+}
+.detail-hero h1 {
+  font-size: clamp(40px, 5.5vw, 76px);
+}
+.detail-hero > p {
+  max-width: 60ch;
+}
+.detail-columns {
+  gap: 64px;
+}
+.detail-columns section {
+  padding: 0;
+  background: none;
+}
+.case-content section {
+  padding-bottom: 16px;
+}
+.case-toc {
+  top: 32px;
+  padding: 24px;
+  background: var(--surface);
+}
+.project-gallery {
+  gap: 32px;
+}
+.policy-page {
+  max-width: 1100px;
+}
+.policy-page > p {
+  max-width: 70ch;
+}
+.policy-page h2 {
+  margin-top: 48px;
+}
+@media (max-width: 1050px) {
+  .skills-grid {
+    gap: 24px;
+  }
+  .skill-card h3 {
+    font-size: 22px;
+  }
+}
+@media (max-width: 750px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .skill-card h3 {
+    margin-bottom: 16px;
+  }
+  .timeline-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 0;
+  }
+  .timeline-row h3 {
+    font-size: 24px;
+  }
+  .timeline-date {
+    font-size: 16px;
+  }
+  .certificate-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .certificate-card {
+    padding-block: 20px;
+  }
+  .certificate-card strong {
+    font-size: 17px;
+  }
+  .detail-columns {
+    gap: 40px;
+  }
+  .case-toc {
+    padding: 20px;
+  }
+}
+
+.project-overview {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 48px;
+  padding: 40px;
+  background: var(--surface);
+  margin: 24px 0 48px;
+}
+.project-overview h2 {
+  font-size: 28px;
+  margin: 0;
+}
+.project-overview p {
+  font-size: 18px;
+  line-height: 1.7;
+  margin: 0;
+  max-width: 65ch;
+}
+.unavailable-status {
+  padding-inline: 0;
+  font-size: 14px;
+}
+@media (max-width: 750px) {
+  .project-overview {
+    grid-template-columns: 1fr;
+    padding: 24px;
+    gap: 20px;
+  }
+  .project-overview p {
+    font-size: 16px;
+  }
+  .detail-hero {
+    padding-bottom: 12px;
+  }
+  .detail-hero > p {
+    font-size: 18px;
   }
 }

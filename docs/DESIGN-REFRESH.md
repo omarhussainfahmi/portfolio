@@ -1,38 +1,30 @@
-# Portfolio design refresh - 27 October 2026
+# Portfolio design revision - 27 October 2026
 
-The existing React/TypeScript portfolio was redesigned using design-taste-frontend. The direction was **The dark room**, seed **1383918670**, retaining the blue palette and Inter/Poppins typefaces. No Sites workflow was used for this refresh.
+The owner rejected the earlier redesign. This revision addresses its hierarchy and repetition: Omar's identity and work lead the page; the Next Chapter interface is supporting evidence instead of the first, oversized marketing image.
 
-The idea: Omar's documented Next Chapter interfaces become the exhibits that connect his work in user experience, application data and enterprise systems. The existing recruiter switch is the main interactive way to explore the same content in a more concise view; certificate filters and evidence dialogs remain functional.
+The design-taste-frontend skill informed this revision. The existing blue brand, Inter/Poppins, light and dark themes, and React/TypeScript implementation remain. No Sites workflow was used.
 
-## What changed
+## Design decisions
 
-- A large full-name introduction and actual Next Chapter interface imagery replace the decorative hero panel.
-- Shared typography, flat surfaces, consistent margins, readable body text and SVG icons extend to project pages, the case study, blog empty state, policies, footer and 404.
-- Project media/body/action regions stay aligned in both modes. Recruiter mode disables entrance animation delays as well as duration.
-- The newest ASP.NET course remains first; all ten credentials remain available. The requested Next Chapter front tags and ASP.NET .NET 8 tag are preserved.
-- Exact experience description and skill-tag requests are checked by regression tests. The old dated HTTP-404 tooltip was removed.
-- Four compressed, labelled team-project screenshots are used. Their source is the owner's already-public graduation report; the original repository wireframe remains separate. No account/admin/database screenshots, fictional portfolio projects, invented testimonials or stock portraits were added.
-- Optional LinkedIn playback, CV/report links, public GitHub API validation/fallbacks, page metadata and security headers remain.
-- Deferred certificate controls are disabled until hydration completes, preventing an early click from being lost before their handlers are ready.
+- A personal introduction sits beside a keyboard-operable overview of web development, SAP, and UI/UX. Each selection uses documented contributions or actual learning topics, with a useful initial HTML state.
+- Selected work retains the owner's aligned pair. The ASP.NET preview explains request/controller/view flow and its data stack. This represents architecture, not an application screenshot.
+- About combines personal facts, a larger first-person introduction, and shared interface work. Capabilities use columns, experience pairs dates with descriptions, and learning uses a credential index. Phone layouts stack independently.
+- Project pages begin with short summaries and accessible repository/download actions. Full original descriptions remain in Project overview. Policies retain quiet reading layouts.
+- Recruiter mode places project/CV actions before its expanded skills summary. All ten credentials and the exact requested experience text remain.
+- Mobile education layout, SVG icons, slim blue scrollbar, opt-in LinkedIn playback, real contacts, and downloads are preserved.
 
-## Direction adaptations
+## Direction and adaptations
 
-The initial deal's photo-dependent portrait, long photographic scene and large project strips did not match the available materials or the owner's requirement for evenly aligned project cards. The design retains a pair of work exhibits, a real interface image in place of a portrait, full grouped skills, readable experience rows, and a complete two-column learning list (one column on phones). Light mode, the compact recruiter view, and the persistent mobile contact bar are established owner requirements and remain. There were no command-level redraws and no pinned scroll scenes.
+The earlier dark-room direction overemphasized one project's imagery. A split-stage draw was assessed and rejected because its fixed photographic half would repeat that problem. The replacement contact-sheet draw (seed 797600314) informed the work index and side-facts composition. Its photograph-filled hero was redrawn because there is no personal photography collection. The text-band alternative was adapted to a legible identity block and one evidence panel: a 16px name and a large empty band would weaken this personal introduction.
 
-The four interface images depict the landing page, genre preferences, genre discovery and reading library. They are credited in captions and `docs/SOURCES.md` as documented team work. No found/dealt photographs, generated portraits or sample content require replacement. The LinkedIn player stays opt-in, rather than autoplaying third-party content to meet a motion quota.
+The work blueprint assumes four to six images per project, which do not exist for the ASP.NET sample. The owner's aligned two-project layout takes precedence. Stock portraits, invented screenshots, and invented projects were not added to fill slots. Contact remains direct email and phone; there is no form endpoint. These are content-driven adaptations, not a claim of literal reproduction of every dealt blueprint.
 
-## Verification and limits
+## Evidence and limits
 
-The build, type checks, lint, publication policy, redacted secret checks and browser tests are recorded with the release. Tests cover all routes, two themes, recruiter mode, nine responsive widths, accessible dialogs, filtering, menu/command keyboard operation, external media opt-in and malformed GitHub data. These checks are evidence for those conditions, not a promise of zero defects on every device.
+Real Next Chapter screenshots come from the team's original graduation report. See [source attribution](SOURCES.md). They represent team work, including Omar's documented shared interface contribution. The SAP panel does not imply a deployed SAP project. The ASP.NET sample's runtime/security are not certified by this portfolio.
 
-The skill's source lint has zero failures; retained font warnings reflect the explicit brand choice. Its production-build homepage inspector reports zero failures at 1440, 768 and 390 pixels. The dated pre-redesign inspection had 16 failures. Warnings about type-size count, repeated mobile evidence groupings and absent autoplay footage are retained and documented.
+Source lint has no failures. Screenshot inspection covers desktop, tablet and phone. Raw reports and critique are retained privately. Strict marketing-page checks still flag a real GitHub profile link as an eyebrow, text passing behind the owner-requested persistent mobile contact strip during scrolling, text-first utility pages for picture/motion quotas, and multiple responsive type sizes. These results are not described as an all-pages clean inspection. LinkedIn playback stays opt-in rather than autoplaying third-party content to meet a footage quota.
 
-Inner-page raw inspection reports are preserved privately. The strict marketing-page rules also flag text-first policies, the empty article page and the ASP.NET sample for having fewer than four photographs, or short utility pages for fewer than eight moving elements. Those quotas are deliberately not met using irrelevant images or motion. Some mobile samples flag text temporarily passing behind the user-required fixed contact strip during scrolling; anchor/focus spacing and end-of-page clearance remain. These are not represented as an all-pages zero-failure inspector result. Browser/accessibility checks are applied separately to those pages.
+Automated verification covers responsive layouts, both modes, credentials, exact copy, keyboard interaction, accessibility, assets, metadata, static HTML, and the new skill perspectives. Final release results are recorded separately; no universal two-second load claim or independent design award is implied.
 
-Final visual self-critique of the main portfolio: design 7.5, usability 8.0, creativity 7.0, content 8.5; weighted score 7.7/10. This is an internal judgment, not an external award. The strongest result is the real project evidence and clearer identity. Remaining limits are the ASP.NET sample's lack of verified application screenshots and the portfolio's intentionally text-rich learning/experience content.
-
-Release verification: 42 Chromium and 42 WebKit checks passed on the tested production build, including the added content-preservation and gallery checks. ESLint, TypeScript, build, staged publication policy and redacted Gitleaks checks passed; npm audit reported zero known vulnerabilities. These observations are dated 27 October 2026. No new Lighthouse score or universal load-time claim is made.
-
-Dependency follow-up: GitHub's dependency graph displayed five development-only Vite alerts against an older dependency-file scan. The tested installed/locked version was already 7.3.7, the patched version recommended by the alert. The manifest minimum was raised from ^7.0.0 to ^7.3.7; lockfile dependency contents did not change. npm audit remains at zero known vulnerabilities. Alert closure is verified separately rather than assumed from the push.
-
-Publication verified: the tested redesign was uploaded to the existing Cloudflare Pages project, which confirmed success. The live home/project/case-study/privacy/terms/blog routes, new interface asset and both authorized downloads returned HTTP 200. Live recruiter mode retained ten credentials and aligned both media and body regions. GitHub Portfolio checks and CodeQL succeeded for the release; after the dependency graph refreshed, all five earlier Vite alerts closed automatically and zero open Dependabot alerts were verified. No manual dismissal or security-setting reduction was used.
+Final application verification: 43 Chromium and 43 WebKit checks passed on the final build. ESLint, TypeScript/build, the staged publication policy, and redacted staged Gitleaks checks passed. npm audit reported zero known vulnerabilities on 27 October 2026. No new dependencies or security-policy relaxations were introduced.

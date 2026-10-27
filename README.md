@@ -98,4 +98,4 @@ The tested application build from commit `4ffcf8e` was uploaded to the existing 
 
 ## Design refresh - 27 October 2026
 
-The portfolio now presents actual Next Chapter team-report screenshots with a larger name-led introduction, consistent reading layouts across routes, aligned project media and a concise recruiter view. All ten certifications, the exact experience copy, CV/report downloads and opt-in LinkedIn playback remain. The ASP.NET front-card tags include .NET 8. See [design decisions and review limits](docs/DESIGN-REFRESH.md) for the direction, imagery attribution and verification scope.
+The revised portfolio introduces Omar before project imagery, with an interactive overview of web development, SAP and UI/UX. Experience, capabilities and credentials have distinct reading layouts; project pages pair a short introduction with a complete overview. Aligned project media, all ten certifications, the requested experience copy, CV/report downloads and opt-in LinkedIn playback remain. The ASP.NET front-card tags include .NET 8. See [design decisions and review limits](docs/DESIGN-REFRESH.md) for the direction, imagery attribution and verification scope.

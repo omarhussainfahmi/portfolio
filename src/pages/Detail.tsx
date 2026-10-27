@@ -36,25 +36,20 @@ export default function Detail({ caseStudy = false }: { caseStudy?: boolean }) {
         <p className="project-context">
           {project.category} - {project.status}
         </p>
-        <p>{project.longDescription}</p>
+        <p>
+          {project.id === 'next-chapter'
+            ? 'A book discovery platform built with PHP, MySQL, and Google Books API.'
+            : 'An ASP.NET Core MVC learning sample with service and repository layers, EF Core, and SQL Server.'}
+        </p>
         {project.dates && <p className="detail-date">{project.dates} · University of Jordan</p>}
         <Tags items={project.technologies} />
         <div className="detail-actions">
-          {project.liveUrl &&
-            (project.liveUnavailable ? (
-              <button
-                className="button secondary"
-                disabled
-                title="The original demonstration is currently unavailable"
-              >
-                Live demo unavailable
-              </button>
-            ) : (
-              <ExternalLink className="button primary" href={project.liveUrl}>
-                Live demo
-              </ExternalLink>
-            ))}
-          <ExternalLink className="button secondary" href={project.githubUrl}>
+          {project.liveUrl && !project.liveUnavailable && (
+            <ExternalLink className="button primary" href={project.liveUrl}>
+              Live demo
+            </ExternalLink>
+          )}
+          <ExternalLink className="button primary" href={project.githubUrl}>
             GitHub repository
           </ExternalLink>
           {project.videoUrl && (
@@ -72,8 +67,21 @@ export default function Detail({ caseStudy = false }: { caseStudy?: boolean }) {
               View case study <ArrowRight size={18} />
             </Link>
           )}
+          {project.liveUnavailable && (
+            <button
+              className="button unavailable-status"
+              disabled
+              title="The original demonstration is currently unavailable"
+            >
+              Live demo unavailable
+            </button>
+          )}
         </div>
       </header>
+      <section className="project-overview" aria-labelledby="project-overview-heading">
+        <h2 id="project-overview-heading">Project overview</h2>
+        <p>{project.longDescription}</p>
+      </section>
       {caseStudy && project.documentationUrl && (
         <p className="data-note">
           Based on the team’s original graduation report. Download it for the full requirements,
