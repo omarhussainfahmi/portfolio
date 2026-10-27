@@ -204,12 +204,9 @@ export default function App({ pages }: { pages?: ServerPages } = {}) {
           Skip to content
         </a>
         <div ref={progressRef} className="scroll-progress" style={{ transform: 'scaleX(0)' }} />
-        <header
-          ref={headerRef}
-          className={scrolled ? 'header scrolled' : 'header'}
-        >
+        <header ref={headerRef} className={scrolled ? 'header scrolled' : 'header'}>
           <div className="header-inner">
-            <Link className="brand" to="/" aria-label="Omar Hussain Fahmi home">
+            <Link className="brand" to="/">
               <span className="brand-mark">
                 OF<span>.</span>
               </span>

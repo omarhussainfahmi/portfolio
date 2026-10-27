@@ -30,6 +30,9 @@ test('routes, metadata, local assets and truthful empty states', async ({ page, 
       'href',
       new RegExp(route.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '$'),
     );
+    // Finish lazy imports before the next full navigation. WebKit otherwise reports
+    // cancelled imports from the document being unloaded as rendering errors.
+    await page.waitForLoadState('networkidle');
   }
   if (existsSync('public/OmarHussainCV.pdf')) {
     const pdf = await request.get('/OmarHussainCV.pdf');

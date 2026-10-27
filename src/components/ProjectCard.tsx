@@ -9,11 +9,7 @@ export default function ProjectCard({ project, index = 0 }: { project: Project; 
       {project.videoEmbedUrl ? (
         <ProjectVideo project={project} />
       ) : (
-        <Link
-          to={`/projects/${project.slug}`}
-          className={`project-art art-${project.id}`}
-          aria-label={`Explore ${project.title}`}
-        >
+        <Link to={`/projects/${project.slug}`} className={`project-art art-${project.id}`}>
           <span className="project-index">PROJECT / 0{index + 1}</span>
           {project.id === 'next-chapter' ? (
             <BookOpen size={76} strokeWidth={1} />

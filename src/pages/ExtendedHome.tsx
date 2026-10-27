@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -21,6 +21,8 @@ import type { Certificate } from '../data/certificates';
 import { siteConfig, education } from '../data/siteConfig';
 import GithubSection from '../components/GithubSection';
 export default function ExtendedHome() {
+  const [interactive, setInteractive] = useState(false);
+  useEffect(() => setInteractive(true), []);
   const [tech, setTech] = useState('All');
   const [category, setCategory] = useState('All');
   const [certificate, setCertificate] = useState<Certificate | null>(null);
@@ -54,7 +56,12 @@ export default function ExtendedHome() {
           <h3>Technologies I work with</h3>
           <div className="filters" aria-label="Technology categories">
             {['All', ...Object.keys(techStack)].map((t) => (
-              <button key={t} aria-pressed={tech === t} onClick={() => setTech(t)}>
+              <button
+                disabled={!interactive}
+                key={t}
+                aria-pressed={tech === t}
+                onClick={() => setTech(t)}
+              >
                 {t}
               </button>
             ))}
@@ -133,7 +140,12 @@ export default function ExtendedHome() {
         </p>
         <div className="filters" aria-label="Certificate categories">
           {['All', ...new Set(certificates.map((c) => c.category))].map((c) => (
-            <button key={c} aria-pressed={category === c} onClick={() => setCategory(c)}>
+            <button
+              disabled={!interactive}
+              key={c}
+              aria-pressed={category === c}
+              onClick={() => setCategory(c)}
+            >
               {c}
             </button>
           ))}
@@ -142,6 +154,7 @@ export default function ExtendedHome() {
           {shown.map((c) => (
             <button
               className="certificate-card"
+              disabled={!interactive}
               key={c.title}
               onClick={(event) => {
                 event.currentTarget.focus({ preventScroll: true });

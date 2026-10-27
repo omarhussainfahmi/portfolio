@@ -20,7 +20,6 @@ export default function ProjectVideo({ project }: { project: Project }) {
         <button
           className="video-launch"
           onClick={() => setLoaded(true)}
-          aria-label={`Play ${project.title} walkthrough`}
           aria-describedby={`video-privacy-${project.id}`}
         >
           <span className="eyebrow">

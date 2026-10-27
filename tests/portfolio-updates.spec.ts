@@ -1,4 +1,20 @@
 import { test, expect } from '@playwright/test';
+test('certificate filters wait for their deferred click handlers', async ({ page }) => {
+  let release!: () => void;
+  const ready = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route('**/assets/ExtendedHome-*.js', async (route) => {
+    await ready;
+    await route.continue();
+  });
+  await page.goto('/#certifications', { waitUntil: 'domcontentloaded' });
+  const cloud = page.locator('#certifications').getByRole('button', { name: 'Cloud', exact: true });
+  await expect(cloud).toBeDisabled();
+  release();
+  await cloud.click();
+  await expect(page.locator('.certificate-card')).toHaveCount(1);
+});
 
 test.beforeEach(async ({ page }) => {
   await page.route('https://api.github.com/**', (route) =>
@@ -76,11 +92,9 @@ test('seven supplied credential links appear in their correct certificate dialog
   for (const [name, url] of credentials) {
     await page.locator('.certificate-card').filter({ hasText: name }).click();
     await expect(
-      page
-        .getByRole('dialog')
-        .getByRole('link', {
-          name: name === 'E-marketing' ? /Visit Google learning/ : /View credential/,
-        }),
+      page.getByRole('dialog').getByRole('link', {
+        name: name === 'E-marketing' ? /Visit Google learning/ : /View credential/,
+      }),
     ).toHaveAttribute('href', url);
     await page.keyboard.press('Escape');
   }
@@ -98,7 +112,9 @@ test('video showcase loads official LinkedIn embed only on request on all releva
   for (const url of ['/', '/projects/next-chapter', '/case-studies/next-chapter']) {
     await page.goto(url);
     await expect(page.locator('.video-showcase iframe')).toHaveCount(0);
-    await page.getByRole('button', { name: 'Play Next Chapter walkthrough', exact: true }).click();
+    await page
+      .getByRole('button', { name: /Next Chapter in action.*Watch the website walkthrough/ })
+      .click();
     await expect(page.locator('.video-showcase iframe')).toHaveAttribute(
       'src',
       'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7346077985780723713',

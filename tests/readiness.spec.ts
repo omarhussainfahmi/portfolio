@@ -1,5 +1,19 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+for (const width of [390, 1440]) {
+  test(`visible control text matches accessible labels at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/');
+    for (const recruiter of [false, true]) {
+      if (recruiter)
+        await page.getByRole('button', { name: 'Recruiter mode', exact: true }).click();
+      const result = await new AxeBuilder({ page })
+        .withRules(['label-content-name-mismatch'])
+        .analyze();
+      expect(result.violations).toEqual([]);
+    }
+  });
+}
 for (const width of [320, 375, 390, 430]) {
   test(`mobile CTAs and contact access at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 640 });
