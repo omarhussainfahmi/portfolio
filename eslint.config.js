@@ -10,6 +10,8 @@ export default tseslint.config(
       'playwright-report/**',
       'test-results/**',
       '.sites-runtime/**',
+      '.taste-skill/**',
+      '.agents/**',
     ],
   },
   js.configs.recommended,

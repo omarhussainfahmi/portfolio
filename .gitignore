@@ -32,3 +32,8 @@ id_rsa
 id_ed25519
 credentials.json
 service-account*.json
+
+# Local agent tooling and design inspection outputs
+.agents/
+.taste-skill/
+skills-lock.json

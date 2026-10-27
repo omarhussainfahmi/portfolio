@@ -333,7 +333,7 @@ function TerminalWindow({ onClose, toggleTheme }: Props) {
         <div ref={logRef} className="terminal-log" role="log" aria-live="polite">
           {output.map((o, i) => (
             <div key={i}>
-              <p className="terminal-prompt">❯ {o.command}</p>
+              <p className="terminal-prompt">$ {o.command}</p>
               <p>{o.text}</p>
               {o.link && (
                 <a
@@ -356,7 +356,7 @@ function TerminalWindow({ onClose, toggleTheme }: Props) {
           }}
         >
           <label htmlFor="terminal-command">
-            ❯ <span className="sr-only">Terminal command</span>
+            $ <span className="sr-only">Terminal command</span>
           </label>
           <input
             id="terminal-command"

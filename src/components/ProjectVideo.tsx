@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Play, Film } from 'lucide-react';
+import { Play } from 'lucide-react';
 import type { Project } from '../data/projects';
 import { ExternalLink } from './ui';
 
@@ -23,9 +23,14 @@ export default function ProjectVideo({ project }: { project: Project }) {
           aria-label={`Play ${project.title} walkthrough`}
           aria-describedby={`video-privacy-${project.id}`}
         >
-          <span className="eyebrow">
-            <Film size={16} /> PROJECT WALKTHROUGH
-          </span>
+          <img
+            className="video-poster"
+            src="/images/next-chapter-discovery.webp"
+            width="1200"
+            height="675"
+            alt="Genre discovery in Next Chapter"
+            loading="lazy"
+          />
           <span className="video-play">
             <Play size={30} />
           </span>

@@ -95,3 +95,7 @@ For optional local commit protection, install Gitleaks and run `git config core.
 Verification: production build, TypeScript and ESLint passed; all 40 tests passed in Chromium and all 40 passed in WebKit. The package audit reported zero known vulnerabilities. Publication policy checks passed for the reviewed source; private downloads and internal records remain excluded from GitHub. Tests cover all existing routes, nine responsive widths, both themes, mobile actions, filtering, dialogs, optional media, command selection and malformed/future cache data. Pending scroll work is non-urgent so it does not interrupt hydration of deferred sections.
 
 The tested application build from commit `4ffcf8e` was uploaded to the existing Cloudflare Pages project and the dashboard confirmed deployment success. The live command palette's End navigation selected and revealed Terminal correctly. Local source/website ZIPs and dated backups were refreshed. The remote README edit that removed the top case-study link was preserved when integrating this work.
+
+## Design refresh - 27 October 2026
+
+The portfolio now presents actual Next Chapter team-report screenshots with a larger name-led introduction, consistent reading layouts across routes, aligned project media and a concise recruiter view. All ten certifications, the exact experience copy, CV/report downloads and opt-in LinkedIn playback remain. The ASP.NET front-card tags include .NET 8. See [design decisions and review limits](docs/DESIGN-REFRESH.md) for the direction, imagery attribution and verification scope.

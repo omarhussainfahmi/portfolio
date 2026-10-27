@@ -20,18 +20,22 @@ export default function Detail({ caseStudy = false }: { caseStudy?: boolean }) {
     );
   return (
     <article className="detail-page">
-      <Link className="text-link" to="/#projects">
-        <ArrowLeft size={17} /> All projects
-      </Link>
+      <nav className="detail-breadcrumb" aria-label="Project navigation">
+        <Link className="text-link" to="/#projects">
+          <ArrowLeft size={17} /> All projects
+        </Link>
+      </nav>
       <header className="detail-hero">
-        <div className="eyebrow">
-          {caseStudy ? 'CASE STUDY' : project.category.toUpperCase()} /{' '}
-          {project.status.toUpperCase()}
-        </div>
         <h1>
-          {project.title}
-          {caseStudy && <span>Behind the build.</span>}
+          {project.id === 'next-chapter'
+            ? caseStudy
+              ? 'Next Chapter case study'
+              : 'Next Chapter'
+            : 'ASP.NET MVC sample'}
         </h1>
+        <p className="project-context">
+          {project.category} - {project.status}
+        </p>
         <p>{project.longDescription}</p>
         {project.dates && <p className="detail-date">{project.dates} · University of Jordan</p>}
         <Tags items={project.technologies} />
@@ -41,7 +45,7 @@ export default function Detail({ caseStudy = false }: { caseStudy?: boolean }) {
               <button
                 className="button secondary"
                 disabled
-                title="The supplied demo returned HTTP 404 on 27 September 2026"
+                title="The original demonstration is currently unavailable"
               >
                 Live demo unavailable
               </button>
@@ -85,17 +89,16 @@ export default function Detail({ caseStudy = false }: { caseStudy?: boolean }) {
       {caseStudy ? (
         <div className="case-layout">
           <nav className="case-toc" aria-label="Case study contents">
-            <span className="eyebrow">IN THIS CASE STUDY</span>
+            <p className="toc-label">Contents</p>
             {caseSections.map(([title], i) => (
               <a key={title} href={`#case-${i}`}>
-                {String(i + 1).padStart(2, '0')} {title}
+                {title}
               </a>
             ))}
           </nav>
           <div className="case-content">
             {caseSections.map(([title, body], i) => (
               <section id={`case-${i}`} key={title}>
-                <span className="eyebrow">{String(i + 1).padStart(2, '0')} /</span>
                 <h2>{title}</h2>
                 <p>{body}</p>
               </section>
@@ -195,7 +198,7 @@ export default function Detail({ caseStudy = false }: { caseStudy?: boolean }) {
         </div>
       </section>
       {lightbox && (
-        <Modal title="Project wireframe" onClose={() => setLightbox(null)} className="lightbox">
+        <Modal title="Project image" onClose={() => setLightbox(null)} className="lightbox">
           <SafeImage src={lightbox.src} alt={lightbox.alt} />
           <p>{lightbox.caption}</p>
           <a className="text-link" href={lightbox.src} target="_blank" rel="noopener noreferrer">

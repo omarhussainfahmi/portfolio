@@ -26,7 +26,7 @@ const CommandCenter = lazy(() => import('./components/CommandCenter'));
 export function NotFound({ message = 'This page could not be found.' }: { message?: string }) {
   return (
     <section className="empty-page">
-      <span className="eyebrow">404 / A WRONG TURN</span>
+      <p>404 - Page not found</p>
       <h1>Let’s get you back.</h1>
       <p>{message}</p>
       <Link className="button primary" to="/">
@@ -74,6 +74,39 @@ export default function App({ pages }: { pages?: ServerPages } = {}) {
   const progressRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const menuRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const root = document.getElementById('main');
+    if (!root) return;
+    const seen = new WeakSet<Element>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add('content-revealed');
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.08 },
+    );
+    const register = () =>
+      root
+        .querySelectorAll(
+          '.detail-hero, .detail-columns section, .case-content section, .project-gallery figure, .policy-page > p, .policy-page > h2, .blog-empty > *, .related-projects',
+        )
+        .forEach((element) => {
+          if (seen.has(element)) return;
+          seen.add(element);
+          observer.observe(element);
+        });
+    register();
+    const mutations = new MutationObserver(register);
+    mutations.observe(root, { childList: true, subtree: true });
+    return () => {
+      observer.disconnect();
+      mutations.disconnect();
+    };
+  }, [location.pathname]);
   useEffect(() => {
     startTransition(() => {
       setTheme(document.documentElement.dataset.theme || 'dark');
@@ -204,18 +237,13 @@ export default function App({ pages }: { pages?: ServerPages } = {}) {
           Skip to content
         </a>
         <div ref={progressRef} className="scroll-progress" style={{ transform: 'scaleX(0)' }} />
-        <header
-          ref={headerRef}
-          className={scrolled ? 'header scrolled' : 'header'}
-        >
+        <header ref={headerRef} className={scrolled ? 'header scrolled' : 'header'}>
           <div className="header-inner">
             <Link className="brand" to="/" aria-label="Omar Hussain Fahmi home">
               <span className="brand-mark">
                 OF<span>.</span>
               </span>
-              <span>
-                OMAR HUSSAIN FAHMI<small>DEVELOPER & SYSTEMS THINKER</small>
-              </span>
+              <span>Omar Hussain Fahmi</span>
             </Link>
             <nav aria-label="Primary" className="desktop-nav">
               {[

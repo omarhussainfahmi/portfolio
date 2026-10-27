@@ -3,7 +3,7 @@ import { ArrowRight, BookOpen, Layers } from 'lucide-react';
 import type { Project } from '../data/projects';
 import { ExternalLink, Tags } from './ui';
 import ProjectVideo from './ProjectVideo';
-export default function ProjectCard({ project, index = 0 }: { project: Project; index?: number }) {
+export default function ProjectCard({ project }: { project: Project; index?: number }) {
   return (
     <article className="project-card">
       {project.videoEmbedUrl ? (
@@ -14,7 +14,6 @@ export default function ProjectCard({ project, index = 0 }: { project: Project; 
           className={`project-art art-${project.id}`}
           aria-label={`Explore ${project.title}`}
         >
-          <span className="project-index">PROJECT / 0{index + 1}</span>
           {project.id === 'next-chapter' ? (
             <BookOpen size={76} strokeWidth={1} />
           ) : (
@@ -24,18 +23,20 @@ export default function ProjectCard({ project, index = 0 }: { project: Project; 
             {project.id === 'next-chapter' ? 'Next Chapter' : 'ASP.NET'}
             <small>
               {project.id === 'next-chapter'
-                ? 'DISCOVER YOUR NEXT READ'
-                : 'AN EXPLORATION IN LAYERS'}
+                ? 'Discover your next read'
+                : 'An exploration in layers'}
             </small>
           </span>
           <span className="art-caption">Project identity · conceptual visual</span>
         </Link>
       )}
       <div className="project-body">
-        <div className="eyebrow">{project.category}</div>
         <h3>
-          <Link to={`/projects/${project.slug}`}>{project.title}</Link>
+          <Link to={`/projects/${project.slug}`}>
+            {project.id === 'asp-net-project' ? 'ASP.NET MVC sample' : project.title}
+          </Link>
         </h3>
+        <p className="project-category">{project.category}</p>
         <p>{project.description}</p>
         <Tags items={project.cardTechnologies ?? project.technologies.slice(0, 4)} />
         <div className="project-links">

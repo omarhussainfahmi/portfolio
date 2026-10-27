@@ -10,3 +10,7 @@ Portfolio identity, experience, education, skills and certifications were suppli
 - Inter and Poppins fonts are self-hosted through their npm font packages, which retain their own license notices.
 
 Descriptions of measured performance are dated lab observations. They do not claim identical results for every visitor or certify the security of the linked sample projects. No testimonials, contribution totals, or project results were invented.
+
+## Portfolio redesign imagery
+
+The landing page, genre preferences, genre discovery and reading-library images are interface screenshots from the Next Chapter team's original graduation report supplied by Omar. They document team work; the site does not attribute sole authorship to Omar. The report is linked from the project and case-study pages. Screenshots showing account identities, admin dashboards, credentials or database records were not used. The existing repository wireframe remains labelled separately.
