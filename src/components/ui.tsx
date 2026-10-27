@@ -29,11 +29,13 @@ export function Tags({ items }: { items: string[] }) {
 }
 export function Section({
   id,
+  number,
   title,
   children,
   className = '',
 }: {
   id: string;
+  number: string;
   title: string;
   children: ReactNode;
   className?: string;
@@ -61,6 +63,7 @@ export function Section({
       aria-labelledby={`${id}-title`}
     >
       <div className="section-heading">
+        <span className="eyebrow">{number} /</span>
         <h2 id={`${id}-title`}>{title}</h2>
       </div>
       {children}

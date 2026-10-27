@@ -5,14 +5,11 @@ import { ExternalLink } from '../components/ui';
 export default function SiteInformation({ terms = false }: { terms?: boolean }) {
   return (
     <article className="policy-page">
-      <nav aria-label="Portfolio navigation">
-        <Link className="text-link" to="/">
-          <ArrowLeft size={17} aria-hidden="true" /> Back to portfolio
-        </Link>
-      </nav>
-
+      <Link className="text-link" to="/">
+        <ArrowLeft size={17} aria-hidden="true" /> Back to portfolio
+      </Link>
+      <p className="eyebrow">PORTFOLIO INFORMATION / UPDATED 18 OCTOBER 2026</p>
       <h1>{terms ? 'Website terms' : 'Privacy & cookies'}</h1>
-      <p className="policy-updated">Updated 18 October 2026</p>
       {terms ? (
         <>
           <p>
@@ -70,11 +67,9 @@ export default function SiteInformation({ terms = false }: { terms?: boolean }) 
             without analytics cookies or cross-site visitor profiles. Analytics can be blocked by
             browser privacy tools, so counts may be incomplete.
           </p>
-          <nav aria-label="Cloudflare privacy reference">
-            <ExternalLink className="text-link" href="https://www.cloudflare.com/privacypolicy/">
-              Cloudflare privacy information
-            </ExternalLink>
-          </nav>
+          <ExternalLink className="text-link" href="https://www.cloudflare.com/privacypolicy/">
+            Cloudflare privacy information
+          </ExternalLink>
           <h2>GitHub and optional LinkedIn videos</h2>
           <p>
             The homepage requests public repository information from GitHub. GitHub receives the
@@ -83,7 +78,7 @@ export default function SiteInformation({ terms = false }: { terms?: boolean }) 
             may use cookies and process information under its own policy. You can browse the
             portfolio without loading that player.
           </p>
-          <nav className="policy-related" aria-label="Related privacy information">
+          <div className="policy-related">
             <ExternalLink
               className="text-link"
               href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
@@ -96,7 +91,7 @@ export default function SiteInformation({ terms = false }: { terms?: boolean }) 
             >
               LinkedIn privacy information
             </ExternalLink>
-          </nav>
+          </div>
           <h2>Your choices and questions</h2>
           <p>
             You can clear local site data, block analytics using browser tools, and leave videos

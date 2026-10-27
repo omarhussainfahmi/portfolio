@@ -44,26 +44,6 @@ export const projects: Project[] = [
     image: '/images/next-chapter-wireframe.webp',
     gallery: [
       {
-        src: '/images/next-chapter-landing.webp',
-        alt: 'Next Chapter landing page from the team project report',
-        caption: 'Landing page - documented team interface.',
-      },
-      {
-        src: '/images/next-chapter-genres.webp',
-        alt: 'Next Chapter genre preferences from the team project report',
-        caption: 'Genre preferences - documented onboarding flow.',
-      },
-      {
-        src: '/images/next-chapter-discovery.webp',
-        alt: 'Next Chapter genre discovery from the team project report',
-        caption: 'Browse by genre - documented discovery interface.',
-      },
-      {
-        src: '/images/next-chapter-library.webp',
-        alt: 'Next Chapter reading library from the team project report',
-        caption: 'Reading library - documented team interface.',
-      },
-      {
         src: '/images/next-chapter-wireframe.webp',
         alt: 'Next Chapter homepage wireframe from the project repository',
         caption:
@@ -96,7 +76,7 @@ export const projects: Project[] = [
   },
   {
     id: 'asp-net-project',
-    cardTechnologies: ['C#', 'ASP.NET Core MVC', '.NET 8', 'Razor'],
+    cardTechnologies: ['C#', 'ASP.NET Core MVC', 'SQL Server', 'Razor'],
     slug: 'asp-net-project',
     title: 'ASP.NET Project - Full Dummy Sample',
     description: 'Exploring the layers of an MVC application.',

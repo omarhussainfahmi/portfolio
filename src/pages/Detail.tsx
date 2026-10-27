@@ -20,36 +20,37 @@ export default function Detail({ caseStudy = false }: { caseStudy?: boolean }) {
     );
   return (
     <article className="detail-page">
-      <nav className="detail-breadcrumb" aria-label="Project navigation">
-        <Link className="text-link" to="/#projects">
-          <ArrowLeft size={17} /> All projects
-        </Link>
-      </nav>
+      <Link className="text-link" to="/#projects">
+        <ArrowLeft size={17} /> All projects
+      </Link>
       <header className="detail-hero">
+        <div className="eyebrow">
+          {caseStudy ? 'CASE STUDY' : project.category.toUpperCase()} /{' '}
+          {project.status.toUpperCase()}
+        </div>
         <h1>
-          {project.id === 'next-chapter'
-            ? caseStudy
-              ? 'Next Chapter case study'
-              : 'Next Chapter'
-            : 'ASP.NET MVC sample'}
+          {project.title}
+          {caseStudy && <span>Behind the build.</span>}
         </h1>
-        <p className="project-context">
-          {project.category} - {project.status}
-        </p>
-        <p>
-          {project.id === 'next-chapter'
-            ? 'A book discovery platform built with PHP, MySQL, and Google Books API.'
-            : 'An ASP.NET Core MVC learning sample with service and repository layers, EF Core, and SQL Server.'}
-        </p>
+        <p>{project.longDescription}</p>
         {project.dates && <p className="detail-date">{project.dates} · University of Jordan</p>}
         <Tags items={project.technologies} />
         <div className="detail-actions">
-          {project.liveUrl && !project.liveUnavailable && (
-            <ExternalLink className="button primary" href={project.liveUrl}>
-              Live demo
-            </ExternalLink>
-          )}
-          <ExternalLink className="button primary" href={project.githubUrl}>
+          {project.liveUrl &&
+            (project.liveUnavailable ? (
+              <button
+                className="button secondary"
+                disabled
+                title="The supplied demo returned HTTP 404 on 27 September 2026"
+              >
+                Live demo unavailable
+              </button>
+            ) : (
+              <ExternalLink className="button primary" href={project.liveUrl}>
+                Live demo
+              </ExternalLink>
+            ))}
+          <ExternalLink className="button secondary" href={project.githubUrl}>
             GitHub repository
           </ExternalLink>
           {project.videoUrl && (
@@ -67,21 +68,8 @@ export default function Detail({ caseStudy = false }: { caseStudy?: boolean }) {
               View case study <ArrowRight size={18} />
             </Link>
           )}
-          {project.liveUnavailable && (
-            <button
-              className="button unavailable-status"
-              disabled
-              title="The original demonstration is currently unavailable"
-            >
-              Live demo unavailable
-            </button>
-          )}
         </div>
       </header>
-      <section className="project-overview" aria-labelledby="project-overview-heading">
-        <h2 id="project-overview-heading">Project overview</h2>
-        <p>{project.longDescription}</p>
-      </section>
       {caseStudy && project.documentationUrl && (
         <p className="data-note">
           Based on the team’s original graduation report. Download it for the full requirements,
@@ -97,16 +85,17 @@ export default function Detail({ caseStudy = false }: { caseStudy?: boolean }) {
       {caseStudy ? (
         <div className="case-layout">
           <nav className="case-toc" aria-label="Case study contents">
-            <p className="toc-label">Contents</p>
+            <span className="eyebrow">IN THIS CASE STUDY</span>
             {caseSections.map(([title], i) => (
               <a key={title} href={`#case-${i}`}>
-                {title}
+                {String(i + 1).padStart(2, '0')} {title}
               </a>
             ))}
           </nav>
           <div className="case-content">
             {caseSections.map(([title, body], i) => (
               <section id={`case-${i}`} key={title}>
+                <span className="eyebrow">{String(i + 1).padStart(2, '0')} /</span>
                 <h2>{title}</h2>
                 <p>{body}</p>
               </section>
@@ -206,7 +195,7 @@ export default function Detail({ caseStudy = false }: { caseStudy?: boolean }) {
         </div>
       </section>
       {lightbox && (
-        <Modal title="Project image" onClose={() => setLightbox(null)} className="lightbox">
+        <Modal title="Project wireframe" onClose={() => setLightbox(null)} className="lightbox">
           <SafeImage src={lightbox.src} alt={lightbox.alt} />
           <p>{lightbox.caption}</p>
           <a className="text-link" href={lightbox.src} target="_blank" rel="noopener noreferrer">

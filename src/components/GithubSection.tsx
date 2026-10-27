@@ -125,11 +125,24 @@ export default function GithubSection() {
       )}
       {data && (
         <>
-          <p className="github-stats">
-            {data.profile.public_repos} public repositories -{' '}
-            {data.repos.reduce((a, r) => a + r.stargazers_count, 0)} stars across loaded repos -{' '}
-            {data.profile.followers} followers - {data.profile.following} following
-          </p>
+          <dl className="github-stats">
+            <div>
+              <dt>Public repositories</dt>
+              <dd>{data.profile.public_repos}</dd>
+            </div>
+            <div>
+              <dt>Stars across loaded repos</dt>
+              <dd>{data.repos.reduce((a, r) => a + r.stargazers_count, 0)}</dd>
+            </div>
+            <div>
+              <dt>Followers</dt>
+              <dd>{data.profile.followers}</dd>
+            </div>
+            <div>
+              <dt>Following</dt>
+              <dd>{data.profile.following}</dd>
+            </div>
+          </dl>
           <h3>Most-used primary languages</h3>
           <Tags items={languages} />
           <p className="data-note">

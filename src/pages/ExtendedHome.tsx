@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
+  ArrowUpRight,
   Award,
   GraduationCap,
   Code2,
+  Database,
+  PanelsTopLeft,
   Mail,
   Phone,
   Github,
@@ -18,8 +21,6 @@ import type { Certificate } from '../data/certificates';
 import { siteConfig, education } from '../data/siteConfig';
 import GithubSection from '../components/GithubSection';
 export default function ExtendedHome() {
-  const [interactive, setInteractive] = useState(false);
-  useEffect(() => setInteractive(true), []);
   const [tech, setTech] = useState('All');
   const [category, setCategory] = useState('All');
   const [certificate, setCertificate] = useState<Certificate | null>(null);
@@ -35,12 +36,14 @@ export default function ExtendedHome() {
   }
   return (
     <>
-      <Section id="skills" title="My toolkit">
+      <Section id="skills" number="03" title="My toolkit">
         <p className="section-subtitle">A foundation in development. A focus on useful outcomes.</p>
         <div className="skills-grid">
-          {Object.entries(skills).map(([label, items]) => {
+          {Object.entries(skills).map(([label, items], i) => {
+            const Icon = [Code2, Database, PanelsTopLeft][i];
             return (
               <article className="skill-card" key={label}>
+                <Icon size={26} />
                 <h3>{label}</h3>
                 <Tags items={items} />
               </article>
@@ -51,12 +54,7 @@ export default function ExtendedHome() {
           <h3>Technologies I work with</h3>
           <div className="filters" aria-label="Technology categories">
             {['All', ...Object.keys(techStack)].map((t) => (
-              <button
-                disabled={!interactive}
-                key={t}
-                aria-pressed={tech === t}
-                onClick={() => setTech(t)}
-              >
+              <button key={t} aria-pressed={tech === t} onClick={() => setTech(t)}>
                 {t}
               </button>
             ))}
@@ -87,11 +85,15 @@ export default function ExtendedHome() {
           </div>
         </div>
       </Section>
-      <Section id="experience" title="Experience & growth">
+      <Section id="experience" number="04" title="Experience & growth">
         <div className="timeline">
-          {experience.map((job) => (
+          {experience.map((job, i) => (
             <article className="timeline-row" key={job.role}>
-              <div className="timeline-date">{job.dates}</div>
+              <div className="timeline-date">
+                <span className="timeline-dot" />
+                {job.dates}
+                <small>0{i + 1}</small>
+              </div>
               <div>
                 <h3>{job.role}</h3>
                 <p className="company">{job.company}</p>
@@ -102,10 +104,15 @@ export default function ExtendedHome() {
           ))}
         </div>
       </Section>
-      <Section id="case-studies" title="Behind the build" className="advanced-section">
+      <Section id="case-studies" number="05" title="Behind the build" className="advanced-section">
         <Link className="case-promo" to="/case-studies/next-chapter">
           <div>
-            <h3>Inside Next Chapter</h3>
+            <span className="eyebrow">CASE STUDY / NEXT CHAPTER</span>
+            <h3>
+              From an idea
+              <br />
+              to the next good read.
+            </h3>
             <p>
               The project, the interface, and the implementation.
               <br />A transparent look at the documented work.
@@ -114,28 +121,19 @@ export default function ExtendedHome() {
               Read the case study <ArrowRight size={18} />
             </span>
           </div>
-          <img
-            className="case-preview"
-            src="/images/next-chapter-library.webp"
-            width="1200"
-            height="675"
-            alt="Next Chapter reading library, from the team report"
-            loading="lazy"
-          />
+          <div className="case-type" aria-hidden="true">
+            N<span>C</span>
+            <small>PHP · JAVASCRIPT · MYSQL</small>
+          </div>
         </Link>
       </Section>
-      <Section id="certifications" title="Learning">
+      <Section id="certifications" number="06" title="Learning, continuously">
         <p className="section-subtitle">
           Specialized training across enterprise software, development, and design.
         </p>
         <div className="filters" aria-label="Certificate categories">
           {['All', ...new Set(certificates.map((c) => c.category))].map((c) => (
-            <button
-              disabled={!interactive}
-              key={c}
-              aria-pressed={category === c}
-              onClick={() => setCategory(c)}
-            >
+            <button key={c} aria-pressed={category === c} onClick={() => setCategory(c)}>
               {c}
             </button>
           ))}
@@ -144,20 +142,23 @@ export default function ExtendedHome() {
           {shown.map((c) => (
             <button
               className="certificate-card"
-              disabled={!interactive}
               key={c.title}
               onClick={(event) => {
                 event.currentTarget.focus({ preventScroll: true });
                 setCertificate(c);
               }}
             >
+              <Award size={24} />
               <span>
-                <strong>{c.title}</strong>
-                <span className="certificate-context">
+                <span className="eyebrow">
                   {c.category} / {c.year}
                 </span>
+                <strong>{c.title}</strong>
                 <span className="certificate-meta">
-                  {c.hours} hours <span>View details</span>
+                  {c.hours} hours{' '}
+                  <span>
+                    View details <ArrowUpRight size={16} aria-hidden="true" />
+                  </span>
                 </span>
               </span>
             </button>
@@ -165,11 +166,11 @@ export default function ExtendedHome() {
         </div>
         {shown.length === 0 && <p role="status">No selected certifications in this category.</p>}
       </Section>
-      <Section id="education" title="The foundation">
+      <Section id="education" number="07" title="The foundation">
         <article className="education-card">
           <GraduationCap size={38} />
           <div>
-            <p className="education-dates">{education.dates}</p>
+            <span className="eyebrow">{education.dates}</span>
             <h3>{education.degree}</h3>
             <p>
               {education.school} · {education.location}
@@ -178,10 +179,10 @@ export default function ExtendedHome() {
           <span className="education-languages">Arabic / English</span>
         </article>
       </Section>
-      <Section id="github" title="Open source" className="advanced-section">
+      <Section id="github" number="08" title="Code, out in the open" className="advanced-section">
         <GithubSection />
       </Section>
-      <Section id="contact" title="Let’s work together">
+      <Section id="contact" number="09" title="Let’s build something useful.">
         <div className="contact-layout">
           <div>
             <p className="contact-lead">
@@ -200,14 +201,14 @@ export default function ExtendedHome() {
             <a href={`mailto:${siteConfig.email}`}>
               <Mail size={20} />
               <span>
-                <small>Email</small>
+                <small>EMAIL</small>
                 {siteConfig.email}
               </span>
             </a>
             <a href={siteConfig.phoneHref}>
               <Phone size={20} />
               <span>
-                <small>Phone</small>
+                <small>PHONE</small>
                 {siteConfig.phone}
               </span>
             </a>

@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 test('recruiter cards align and show updated identity and skills', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
-  await expect(page.locator('.brand')).toContainText('Omar Hussain Fahmi');
+  await expect(page.locator('.brand')).toContainText('OMAR HUSSAIN FAHMI');
   await page.getByRole('button', { name: 'Recruiter mode', exact: true }).click();
   await expect(page.locator('.hero-description')).toContainText('SQL, and OOP');
   const cards = page.locator('#projects .project-card');
@@ -25,5 +25,5 @@ test('normal-mode project cards align', async ({ page }) => {
     const b = await cards.nth(1).locator(selector).boundingBox();
     expect(Math.abs(a!.y - b!.y)).toBeLessThan(2);
   }
-  await page.locator('#projects').screenshot({ path: 'docs/qa/normal-cards-fixed.png' });
+  await page.locator('#projects').screenshot({path:'docs/qa/normal-cards-fixed.png'});
 });

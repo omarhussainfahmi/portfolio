@@ -16,10 +16,10 @@ export default function Blog() {
         <Link className="text-link" to="/blog">
           <ArrowLeft size={18} /> All articles
         </Link>
-        <h1>{a.title}</h1>
-        <p>
-          {a.category} / {a.publishedAt} / {readingTime(a)} min read
+        <p className="eyebrow">
+          {a.category} / {a.publishedAt} / {readingTime(a)} MIN READ
         </p>
+        <h1>{a.title}</h1>
         <Tags items={a.tags} />
         {a.paragraphs.map((p, i) => (
           <p key={i}>{p}</p>
@@ -44,13 +44,16 @@ export default function Blog() {
   );
   return (
     <section className="blog-page">
-      <nav aria-label="Portfolio navigation">
-        <Link className="text-link" to="/">
-          <ArrowLeft size={18} /> Back to portfolio
-        </Link>
-      </nav>
+      <Link className="text-link" to="/">
+        <ArrowLeft size={18} /> Back to portfolio
+      </Link>
       <header className="detail-hero">
-        <h1>Things worth writing down.</h1>
+        <p className="eyebrow">NOTES / LEARNING / IDEAS</p>
+        <h1>
+          Things worth
+          <br />
+          writing down.
+        </h1>
         <p>Development, SAP, and lessons from the work.</p>
       </header>
       {articles.length ? (
@@ -73,8 +76,8 @@ export default function Blog() {
           <div className="article-grid">
             {filtered.map((a) => (
               <article key={a.slug}>
-                <span className="article-context">
-                  {a.category} / {readingTime(a)} min read
+                <span className="eyebrow">
+                  {a.category} / {readingTime(a)} MIN READ
                 </span>
                 <h2>
                   <Link to={`/blog/${a.slug}`}>{a.title}</Link>

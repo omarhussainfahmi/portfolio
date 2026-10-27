@@ -14,10 +14,10 @@ test('routes, metadata, local assets and truthful empty states', async ({ page, 
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   for (const [route, title] of [
-    ['/', 'Omar Hussain Fahmi'],
+    ['/', 'Hello, I’m'],
     ['/projects/next-chapter', 'Next Chapter'],
-    ['/projects/asp-net-project', 'ASP.NET MVC sample'],
-    ['/case-studies/next-chapter', 'Next Chapter case study'],
+    ['/projects/asp-net-project', 'ASP.NET Project'],
+    ['/case-studies/next-chapter', 'Behind the build.'],
     ['/blog', 'Things worth'],
     ['/projects/missing', 'Let’s get you back.'],
     ['/blog/missing', 'Let’s get you back.'],
@@ -74,7 +74,7 @@ test('theme persists, recruiter mode transforms and mobile menu navigates', asyn
   await expect(page).toHaveURL(/#certifications$/);
   await expect(page.locator('#full-navigation')).toHaveCount(0);
 });
-test('certificate filtering, modal focus and project-image lightbox', async ({ page }) => {
+test('certificate filtering, modal focus and wireframe lightbox', async ({ page }) => {
   await page.goto('/#certifications');
   await page.locator('#certifications').getByRole('button', { name: 'Cloud', exact: true }).click();
   await expect(page.locator('.certificate-card')).toHaveCount(1);
@@ -84,10 +84,7 @@ test('certificate filtering, modal focus and project-image lightbox', async ({ p
   await expect(page.getByRole('dialog')).toHaveCount(0);
   await expect(page.locator('.certificate-card')).toBeFocused();
   await page.goto('/projects/next-chapter');
-  await page
-    .getByRole('button', { name: /Enlarge/ })
-    .first()
-    .click();
+  await page.getByRole('button', { name: /Enlarge/ }).click();
   await expect(page.getByRole('dialog')).toBeVisible();
   await expect(page.getByRole('dialog').locator('img')).toBeVisible();
   await page.keyboard.press('Escape');
@@ -160,7 +157,7 @@ test('GitHub success, cached data and source limits', async ({ page }) => {
     return route.fulfill({ json: data });
   });
   await page.goto('/#github');
-  await expect(page.locator('.github-stats')).toContainText('1 public repositories');
+  await expect(page.locator('.github-stats')).toContainText('Public repositories1');
   await expect(page.locator('.repo-grid:not(.project-repositories)')).toContainText('test-fixture');
   await expect(page.locator('#github')).toContainText('not a total contribution count');
   await page.reload();
