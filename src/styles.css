@@ -346,10 +346,22 @@ main:focus {
   font-size: 1rem;
   min-height: 48px;
 }
-.role-line > span:last-child {
+.role-rotator {
+  display: grid;
+  align-items: center;
+  min-width: 0;
+  line-height: 1.5;
+}
+.role-rotator > span {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+.role-rotator > .role-active {
+  visibility: visible;
   animation: reveal 0.6s ease;
 }
 .role-dash {
+  flex-shrink: 0;
   width: 26px;
   height: 1px;
   background: var(--accent);
@@ -426,7 +438,9 @@ main:focus {
   padding: 25px 27px;
   position: relative;
   box-shadow: 0 25px 65px #0001;
-  transform: rotate(2deg);
+  /* Keep the tilted surface on its own layer when adjacent controls animate. */
+  transform: translateZ(0) rotate(2deg);
+  backface-visibility: hidden;
   border-radius: 10px;
 }
 .panel-top {
@@ -925,7 +939,7 @@ kbd {
     font-size: 3.2rem;
   }
   .hero-panel {
-    transform: none;
+    transform: translateZ(0);
     padding: 20px;
   }
   .focus-card {
@@ -1001,7 +1015,7 @@ kbd {
   }
   .hero-panel {
     margin: 0 6px 0 0;
-    transform: rotate(1deg);
+    transform: translateZ(0) rotate(1deg);
     padding: 24px;
   }
   .focus-card strong {

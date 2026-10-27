@@ -18,12 +18,6 @@ import { projects } from '../data/projects';
 import ProjectCard from '../components/ProjectCard';
 import { ExternalLink, Section } from '../components/ui';
 export default function Home({ recruiter = false }: { recruiter?: boolean }) {
-  const [role, setRole] = useState(0);
-  useEffect(() => {
-    if (recruiter || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const timer = setInterval(() => setRole((v) => (v + 1) % siteConfig.roles.length), 4000);
-    return () => clearInterval(timer);
-  }, [recruiter]);
   return (
     <>
       <section className="hero" id="home">
@@ -37,10 +31,7 @@ export default function Home({ recruiter = false }: { recruiter?: boolean }) {
             <span>Hello, I’m</span> Omar Hussain
             <br /> <em>Fahmi.</em>
           </h1>
-          <div className="role-line">
-            <span className="role-dash" />
-            <span key={role}>{siteConfig.roles[role]}</span>
-          </div>
+          <RotatingRole recruiter={recruiter} />
           <p className="hero-description">
             {recruiter ? siteConfig.recruiterSummary : siteConfig.summary}
           </p>
@@ -158,6 +149,33 @@ export default function Home({ recruiter = false }: { recruiter?: boolean }) {
         </div>
       </Section>
     </>
+  );
+}
+function RotatingRole({ recruiter }: { recruiter: boolean }) {
+  const [role, setRole] = useState(0);
+  useEffect(() => {
+    if (recruiter || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const timer = setInterval(
+      () => setRole((value) => (value + 1) % siteConfig.roles.length),
+      4000,
+    );
+    return () => clearInterval(timer);
+  }, [recruiter]);
+  return (
+    <div className="role-line">
+      <span className="role-dash" aria-hidden="true" />
+      <span className="role-rotator">
+        {siteConfig.roles.map((label, index) => (
+          <span
+            key={label}
+            className={index === role ? 'role-active' : undefined}
+            aria-hidden={index !== role}
+          >
+            {label}
+          </span>
+        ))}
+      </span>
+    </div>
   );
 }
 function ArrowUp() {
