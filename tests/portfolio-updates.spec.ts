@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 test('certificate filters wait for their deferred click handlers', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   let release!: () => void;
   const ready = new Promise<void>((resolve) => {
     release = resolve;
