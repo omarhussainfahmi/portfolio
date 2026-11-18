@@ -5,9 +5,24 @@ import { ExternalLink, Tags } from './ui';
 import ProjectVideo from './ProjectVideo';
 export default function ProjectCard({ project, index = 0 }: { project: Project; index?: number }) {
   return (
-    <article className="project-card">
+    <article className={project.cardImage ? 'project-card project-card-preview' : 'project-card'}>
       {project.videoEmbedUrl ? (
         <ProjectVideo project={project} />
+      ) : project.cardImage ? (
+        <Link
+          to={`/projects/${project.slug}`}
+          className="project-art project-art-preview"
+          aria-label={`View ${project.title} project`}
+        >
+          <img
+            src={project.cardImage}
+            alt=""
+            width={1120}
+            height={770}
+            loading="lazy"
+            decoding="async"
+          />
+        </Link>
       ) : (
         <Link to={`/projects/${project.slug}`} className={`project-art art-${project.id}`}>
           <span className="project-index">PROJECT / 0{index + 1}</span>

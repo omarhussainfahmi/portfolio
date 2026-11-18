@@ -59,6 +59,10 @@ function Palette({ onClose, toggleTheme, toggleRecruiter, setMode }: Props) {
             : name.replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase()),
         run: () => navigate(`/#${id}`),
       })),
+    ...projects.map(({ title, slug }) => ({
+      name: title,
+      run: () => navigate(`/projects/${slug}`),
+    })),
     { name: 'GitHub', run: () => navigate('/#github') },
     { name: 'Blog', run: () => navigate('/blog') },
     { name: 'Recruiter Mode', run: toggleRecruiter },

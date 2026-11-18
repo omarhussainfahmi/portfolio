@@ -70,8 +70,10 @@ test('internal links, images and all route metadata are valid', async ({ page, r
     '/terms',
     '/blog',
     '/projects/next-chapter',
+    '/projects/stocklumo',
     '/projects/asp-net-project',
     '/case-studies/next-chapter',
+    '/case-studies/stocklumo',
   ]) {
     await page.goto(route);
     await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(

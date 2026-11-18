@@ -133,6 +133,11 @@ export default function ExtendedHome() {
             <small>PHP · JAVASCRIPT · MYSQL</small>
           </div>
         </Link>
+        <p>
+          <Link className="text-link" to="/case-studies/stocklumo">
+            Stocklumo case study <ArrowRight size={18} />
+          </Link>
+        </p>
       </Section>
       <Section id="certifications" number="06" title="Learning, continuously">
         <p className="section-subtitle">

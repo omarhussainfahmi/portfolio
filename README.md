@@ -9,7 +9,7 @@ My personal portfolio brings together full-stack development, SAP Fiori, ABAP Cl
 
 - Responsive layouts, light/dark themes, and a persistent mobile email/CV bar.
 - Normal and recruiter modes, with projects and certifications available in both.
-- Project pages and a documented Next Chapter case study, with an optional LinkedIn walkthrough.
+- Project pages and case studies for Stocklumo and Next Chapter. Stocklumo links to the live app, source, tests, security changes, and development history. Next Chapter includes an optional LinkedIn walkthrough.
 - Searchable navigation, an interactive portfolio terminal, and keyboard-accessible dialogs.
 - Public GitHub activity with caching, deferred requests, and useful rate-limit fallbacks.
 - Prerendered HTML, page metadata, social previews, sitemap, robots.txt, and a custom 404.

@@ -82,6 +82,20 @@ export default function Detail({ caseStudy = false }: { caseStudy?: boolean }) {
           <ProjectVideo project={project} />
         </section>
       )}
+      {project.evidence && (
+        <section className="project-gallery">
+          <h2>Explore the work on GitHub</h2>
+          <ul className="feature-list">
+            {project.evidence.map(({ label, url }) => (
+              <li key={url}>
+                <ExternalLink className="text-link" href={url}>
+                  {label}
+                </ExternalLink>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       {caseStudy ? (
         <div className="case-layout">
           <nav className="case-toc" aria-label="Case study contents">
@@ -120,11 +134,13 @@ export default function Detail({ caseStudy = false }: { caseStudy?: boolean }) {
             {project.technical.map((t) => (
               <p key={t}>{t}</p>
             ))}
-            <p className="data-note">
-              {project.documentationUrl
-                ? 'Source: the original Next Chapter project report and repository. Reported findings describe the graduation project.'
-                : 'Source: project repository inspected on 27 September 2026. This portfolio does not certify the sample’s runtime behavior or security.'}
-            </p>
+            {!project.evidence && (
+              <p className="data-note">
+                {project.documentationUrl
+                  ? 'Source: the original Next Chapter project report and repository. Reported findings describe the graduation project.'
+                  : 'Source: project repository inspected on 27 September 2026. This portfolio does not certify the sample’s runtime behavior or security.'}
+              </p>
+            )}
           </section>
         </div>
       )}
@@ -195,7 +211,11 @@ export default function Detail({ caseStudy = false }: { caseStudy?: boolean }) {
         </div>
       </section>
       {lightbox && (
-        <Modal title="Project wireframe" onClose={() => setLightbox(null)} className="lightbox">
+        <Modal
+          title={project.cardImage ? 'Project screenshot' : 'Project wireframe'}
+          onClose={() => setLightbox(null)}
+          className="lightbox"
+        >
           <SafeImage src={lightbox.src} alt={lightbox.alt} />
           <p>{lightbox.caption}</p>
           <a className="text-link" href={lightbox.src} target="_blank" rel="noopener noreferrer">

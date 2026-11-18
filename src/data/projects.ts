@@ -1,3 +1,5 @@
+import { stocklumo, stocklumoCaseSections } from './stocklumo';
+
 export interface GalleryImage {
   src: string;
   alt: string;
@@ -14,6 +16,7 @@ export interface Project {
   cardTechnologies?: string[];
   category: string;
   image?: string;
+  cardImage?: string;
   gallery: GalleryImage[];
   liveUrl?: string;
   liveUnavailable?: boolean;
@@ -26,10 +29,12 @@ export interface Project {
   features: string[];
   status: string;
   technical: string[];
+  evidence?: { label: string; url: string }[];
   challenges?: { title: string; body: string }[];
   futureImprovements?: { title: string; body: string }[];
 }
 export const projects: Project[] = [
+  stocklumo,
   {
     id: 'next-chapter',
     cardTechnologies: ['HTML', 'PHP', 'MySQL', 'Google Books API'],
@@ -203,5 +208,6 @@ export const caseSections = [
   ],
 ] as const;
 export function getCaseSections(slug: string) {
+  if (slug === stocklumo.slug) return stocklumoCaseSections;
   return slug === 'next-chapter' ? caseSections : [];
 }

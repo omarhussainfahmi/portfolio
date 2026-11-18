@@ -5,7 +5,7 @@ test('recruiter cards align and show updated identity and skills', async ({ page
   await expect(page.locator('.brand')).toContainText('OMAR HUSSAIN FAHMI');
   await page.getByRole('button', { name: 'Recruiter mode', exact: true }).click();
   await expect(page.locator('.hero-description')).toContainText('SQL, and OOP');
-  const cards = page.locator('#projects .project-card');
+  const cards = page.locator('#projects .project-card:not(.project-card-preview)');
   const first = await cards.nth(0).locator('.project-body').boundingBox();
   const second = await cards.nth(1).locator('.project-body').boundingBox();
   expect(Math.abs(first!.y - second!.y)).toBeLessThan(2);
@@ -19,7 +19,7 @@ test('recruiter cards align and show updated identity and skills', async ({ page
 test('normal-mode project cards align', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
-  const cards = page.locator('#projects .project-card');
+  const cards = page.locator('#projects .project-card:not(.project-card-preview)');
   for (const selector of ['.project-body', '.project-links']) {
     const a = await cards.nth(0).locator(selector).boundingBox();
     const b = await cards.nth(1).locator(selector).boundingBox();

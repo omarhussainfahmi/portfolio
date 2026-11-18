@@ -42,11 +42,15 @@ test('all ten certifications remain available in recruiter mode and after filter
   await expect(page.locator('.certificate-card')).toHaveCount(10);
 });
 
-test('both project repositories survive an API failure and removed sections are absent', async ({
+test('project repositories survive an API failure and removed sections are absent', async ({
   page,
 }) => {
   await page.goto('/');
-  await expect(page.locator('#github .project-repositories a')).toHaveCount(2);
+  await expect(page.locator('#github .project-repositories a')).toHaveCount(3);
+  await expect(page.locator('#github').getByRole('link', { name: /^Stocklumo/ })).toHaveAttribute(
+    'href',
+    'https://github.com/omarhussainfahmi/stocklumo',
+  );
   await expect(
     page.locator('#github').getByRole('link', { name: /^Next Chapter/ }),
   ).toHaveAttribute('href', 'https://github.com/qus0i/Graduation-project');
