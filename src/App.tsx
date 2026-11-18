@@ -340,6 +340,9 @@ export default function App({ pages }: { pages?: ServerPages } = {}) {
           <div className="footer-links">
             <ExternalLink href={siteConfig.github}>GitHub</ExternalLink>
             <ExternalLink href={siteConfig.linkedin}>LinkedIn</ExternalLink>
+            <ExternalLink href={siteConfig.instagram}>Instagram</ExternalLink>
+            <ExternalLink href={siteConfig.whatsapp}>WhatsApp</ExternalLink>
+            <a href={siteConfig.phoneHref}>Call Omar</a>
             <a href={`mailto:${siteConfig.email}`} className="text-link">
               Email <ArrowUpRight size={16} aria-hidden="true" />
             </a>

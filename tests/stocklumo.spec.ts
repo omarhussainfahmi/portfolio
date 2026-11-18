@@ -8,10 +8,7 @@ test('Stocklumo is featured in both views and leads reviewers to the case study'
   await page.goto('/#projects');
   const card = page.locator('#projects .project-card').first();
   await expect(card.getByRole('heading', { name: 'Stocklumo' })).toBeVisible();
-  await expect(card.locator('img')).toHaveAttribute(
-    'src',
-    '/images/stocklumo-home-dark.webp',
-  );
+  await expect(card.locator('img')).toHaveAttribute('src', '/images/stocklumo-home-dark.webp');
   await expect(card.getByRole('link', { name: 'Live demo' })).toHaveAttribute(
     'href',
     'https://stocklumo.onrender.com/',
@@ -24,6 +21,12 @@ test('Stocklumo is featured in both views and leads reviewers to the case study'
   await expect(page).toHaveURL(/\/case-studies\/stocklumo\/?$/);
   await expect(page.getByRole('heading', { name: 'Testing the failure paths' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Valuing a practice portfolio' })).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Prototyping broader research coverage' }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'What the production release verified' }),
+  ).toBeVisible();
   await expect(
     page.getByRole('heading', { name: 'Protecting credentials and shared capacity' }),
   ).toBeVisible();

@@ -138,6 +138,8 @@ export const stocklumo: Project = {
     { label: 'Frontend and browser tests', url: `${repository}/tree/${revision}/tests` },
     { label: 'Passing release checks', url: `${repository}/actions/runs/44383902755` },
     { label: 'Rate limiting and release review', url: `${repository}/pull/3` },
+    { label: 'Maintainability and release changes', url: `${repository}/pull/1` },
+    { label: 'CI workflow', url: `${repository}/blob/${revision}/.github/workflows/verify.yml` },
     { label: 'Commit history', url: `${repository}/commits/main/` },
   ],
 };
@@ -156,6 +158,10 @@ export const stocklumoCaseSections = [
     'The ASP.NET Core server uses Finnhub REST endpoints for snapshots, company information, news, and research data. One shared WebSocket receives trades, and reference counts let multiple views follow the same symbol without opening separate provider connections. The server releases unused subscriptions, reconnects and resubscribes after a drop, and sends browser snapshots through server-sent events. Several trades may be combined into one UI update.',
   ],
   [
+    'Recovering from provider interruptions',
+    'Requests for the same data share cached results. If Finnhub throttles requests, the server backs off before trying again. Feed tests simulate fragmented WebSocket messages, reconnection, resubscription, and cleanup after the last browser leaves. They also check that a late REST snapshot cannot replace a newer trade. The health endpoint stays independent of market-data admission limits.',
+  ],
+  [
     'Making data limits visible',
     'The interface reports feed connectivity, market hours, and quote freshness separately. An open connection can still carry an older quote, especially after hours. When the provider plan does not return historical candles, the session view can display observations received during the visit. A single observation appears as a latest quote because a trend needs at least two points.',
   ],
@@ -166,6 +172,10 @@ export const stocklumoCaseSections = [
   [
     'Valuing a practice portfolio',
     'A practice lot records its symbol, purchase date, quantity, and purchase price. The app uses eligible quotes to calculate cost basis, latest value, unrealized gain or loss, and allocation. Totals stay grouped by currency, and missing or pre-purchase quotes can leave a total incomplete. The holdings are hypothetical, stored in the browser, and used for practice only.',
+  ],
+  [
+    'Prototyping broader research coverage',
+    'I built a local research preview using dated snapshots to exercise candlestick and volume charts, historical comparisons, financial statements, and practice-portfolio history. The preview makes its source, capture dates, and coverage explicit. Public Stocklumo uses Finnhub and shows the research views supported by its configured provider access.',
   ],
   [
     'Earnings and publisher-linked news',
@@ -186,6 +196,10 @@ export const stocklumoCaseSections = [
   [
     'Testing the failure paths',
     'Backend tests cover provider throttling, credential isolation, stream cleanup, and admission limits. JavaScript tests exercise research calculations and rendering, including incomplete valuations. Playwright uses controlled fixtures for unavailable, stale, and delayed data and checks search, charts, watchlist persistence, and backup restore across desktop, Android Chromium, and iPhone WebKit profiles. The linked 18 November 2026 release run passed the backend, frontend, browser, and runtime image checks.',
+  ],
+  [
+    'What the production release verified',
+    'On 18 November 2026, the Render release served the market snapshot and passed its independent health check. Verification confirmed that the per-network stream limit responded with HTTP 429 once the allowance was reached. The backend suite separately verified the read limit. The release pull request and passing CI run link to the code and automated checks behind those results.',
   ],
   [
     'Development and release history',

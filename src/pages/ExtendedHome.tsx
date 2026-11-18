@@ -12,6 +12,8 @@ import {
   Phone,
   Github,
   Linkedin,
+  Instagram,
+  MessageCircle,
 } from 'lucide-react';
 import { Section, Tags, ExternalLink, Modal } from '../components/ui';
 import { skills, techStack, techIcons } from '../data/skills';
@@ -232,6 +234,12 @@ export default function ExtendedHome() {
             </a>
             <ExternalLink href={siteConfig.linkedin}>
               <Linkedin size={20} /> LinkedIn
+            </ExternalLink>
+            <ExternalLink href={siteConfig.instagram}>
+              <Instagram size={20} aria-hidden="true" /> Instagram
+            </ExternalLink>
+            <ExternalLink href={siteConfig.whatsapp}>
+              <MessageCircle size={20} aria-hidden="true" /> WhatsApp
             </ExternalLink>
             <ExternalLink href={siteConfig.github}>
               <Github size={20} /> GitHub

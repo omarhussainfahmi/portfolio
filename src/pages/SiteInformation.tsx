@@ -48,10 +48,11 @@ export default function SiteInformation({ terms = false }: { terms?: boolean }) 
           </p>
           <h2>Contacting me</h2>
           <p>
-            The email and phone links open your own mail or calling application. This website has no
-            contact submission form, visitor account, payment system, or mailing list. If you email
-            me, I use the information you provide to respond and discuss your enquiry. Please avoid
-            sending sensitive documents in an initial message.
+            Email and phone links open your mail or calling application. Instagram and WhatsApp
+            open those services, where their privacy policies apply. I use the information you send
+            to respond to your enquiry. Please avoid sending sensitive documents in an initial
+            message. This portfolio has no contact form, visitor account, payment system, or
+            mailing list.
           </p>
           <h2>Browser storage and cookies</h2>
           <p>

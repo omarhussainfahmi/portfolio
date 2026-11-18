@@ -137,6 +137,18 @@ test('GitHub fallback and external/contact links', async ({ page }) => {
     'href',
     'tel:+966500411051',
   );
+  for (const area of ['#contact', 'footer']) {
+    const region = page.locator(area);
+    await expect(region.getByRole('link', { name: /^Instagram/ })).toHaveAttribute(
+      'href',
+      'https://www.instagram.com/gorgeous.omar/',
+    );
+    await expect(region.getByRole('link', { name: /^WhatsApp/ })).toHaveAttribute(
+      'href',
+      'https://wa.me/966500411051',
+    );
+    await expect(region.locator('a[href^="tel:"]')).toHaveAttribute('href', 'tel:+966500411051');
+  }
 });
 test('GitHub success, cached data and source limits', async ({ page }) => {
   await page.unroute('https://api.github.com/**');

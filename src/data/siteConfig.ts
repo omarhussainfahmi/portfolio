@@ -3,10 +3,12 @@ export const siteConfig = {
   title: 'Computer Information Systems Specialist',
   location: 'Jeddah, Saudi Arabia',
   email: 'omarhussainfahmi@hotmail.com',
-  phone: '+966 5004 11 051',
+  phone: '+966 50 041 1051',
   phoneHref: 'tel:+966500411051',
   github: 'https://github.com/omarhussainfahmi',
   linkedin: 'https://www.linkedin.com/in/omar-hussain-fahmi-830b62256',
+  instagram: 'https://www.instagram.com/gorgeous.omar/',
+  whatsapp: 'https://wa.me/966500411051',
   cv: 'https://omar-hussain-fahmi-portfolio.pages.dev/OmarHussainCV.pdf?v=20260929',
   available: true,
   recruiterSummary:

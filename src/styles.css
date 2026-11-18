@@ -732,6 +732,7 @@ footer p {
 }
 .footer-links {
   display: flex;
+  flex-wrap: wrap;
   gap: 26px;
   align-items: center;
 }
