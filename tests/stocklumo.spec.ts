@@ -10,7 +10,7 @@ test('Stocklumo is featured in both views and leads reviewers to the case study'
   await expect(card.getByRole('heading', { name: 'Stocklumo' })).toBeVisible();
   await expect(card.locator('img')).toHaveAttribute(
     'src',
-    '/images/stocklumo-market-overview.webp',
+    '/images/stocklumo-home-dark.webp',
   );
   await expect(card.getByRole('link', { name: 'Live demo' })).toHaveAttribute(
     'href',

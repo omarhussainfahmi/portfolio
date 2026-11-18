@@ -102,7 +102,7 @@ export const stocklumo: Project = {
     'Render',
   ],
   gallery,
-  cardImage: '/images/stocklumo-market-overview.webp',
+  cardImage: '/images/stocklumo-home-dark.webp',
   galleryInvite: 'Explore the markets, look up a company, or build a watchlist in the live app.',
   liveUrl: 'https://stocklumo.onrender.com/',
   githubUrl: repository,
