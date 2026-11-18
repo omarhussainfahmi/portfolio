@@ -177,20 +177,22 @@ export default function Detail({ caseStudy = false }: { caseStudy?: boolean }) {
       <section className="project-gallery">
         <h2>Project gallery</h2>
         {project.gallery.length ? (
-          project.gallery.map((item) => (
-            <figure key={item.src}>
-              <button
-                onClick={(event) => {
-                  event.currentTarget.focus({ preventScroll: true });
-                  setLightbox(item);
-                }}
-                aria-label={`Enlarge: ${item.alt}`}
-              >
-                <SafeImage src={item.src} alt={item.alt} />
-              </button>
-              <figcaption>{item.caption}</figcaption>
-            </figure>
-          ))
+          <div className={project.gallery.length > 1 ? 'project-gallery-grid' : undefined}>
+            {project.gallery.map((item) => (
+              <figure key={item.src}>
+                <button
+                  onClick={(event) => {
+                    event.currentTarget.focus({ preventScroll: true });
+                    setLightbox(item);
+                  }}
+                  aria-label={`Enlarge: ${item.alt}`}
+                >
+                  <SafeImage src={item.src} alt={item.alt} />
+                </button>
+                <figcaption>{item.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
         ) : (
           <div className="quiet-empty">
             <p>

@@ -14,14 +14,7 @@ export default function ProjectCard({ project, index = 0 }: { project: Project; 
           className="project-art project-art-preview"
           aria-label={`View ${project.title} project`}
         >
-          <img
-            src={project.cardImage}
-            alt=""
-            width={1120}
-            height={770}
-            loading="lazy"
-            decoding="async"
-          />
+          <img src={project.cardImage} alt="" loading="lazy" decoding="async" />
         </Link>
       ) : (
         <Link to={`/projects/${project.slug}`} className={`project-art art-${project.id}`}>

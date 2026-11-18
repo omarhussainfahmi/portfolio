@@ -540,6 +540,26 @@
   font-size: 0.75rem;
   margin: 15px 0;
 }
+.project-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.project-gallery .project-gallery-grid button {
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: var(--surface);
+}
+.project-gallery-grid img {
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
+@media (max-width: 620px) {
+  .project-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
 .related-projects {
   padding-top: 40px;
 }

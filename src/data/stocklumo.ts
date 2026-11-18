@@ -2,7 +2,66 @@ import type { Project } from './projects';
 
 const repository = 'https://github.com/omarhussainfahmi/stocklumo';
 const revision = 'a6c4d71fc4505277419e7ba26ef1833060d24064';
-const screenshot = '/images/stocklumo-markets.webp';
+const gallery: Project['gallery'] = [
+  {
+    src: '/images/stocklumo-market-overview.webp',
+    alt: 'Stocklumo dashboard with market coverage, a daily stock snapshot, and research links',
+    caption:
+      'Market overview. Coverage, quote availability, and changes for the daily stock selection.',
+  },
+  {
+    src: '/images/stocklumo-stock-spotlight.webp',
+    alt: 'Stocklumo spotlight showing eight stocks with prices, daily changes, and quote timestamps',
+    caption: 'Stock spotlight. The daily selection shows when each quote was captured.',
+  },
+  {
+    src: '/images/stocklumo-watchlist.webp',
+    alt: 'Stocklumo watchlist with saved companies, reorder and remove controls, and recently viewed stocks',
+    caption: 'Watchlist. Saved stocks and recently viewed companies stay in the same browser.',
+  },
+  {
+    src: '/images/stocklumo-news.webp',
+    alt: 'Stocklumo news page in light mode with publisher names, timestamps, and article summaries',
+    caption:
+      'News. Publisher attribution and timestamps give readers context before they open a story.',
+  },
+  {
+    src: '/images/stocklumo-screener.webp',
+    alt: 'Stocklumo screener with a company table, an Apple detail panel, and a size-versus-change plot',
+    caption:
+      'Stock screener. Inspect a company and see how its size and daily change compare with the filtered set.',
+  },
+  {
+    src: '/images/stocklumo-company-detail.webp',
+    alt: 'Alphabet detail page showing the latest quote, unavailable historical prices, trading ranges, and company profile',
+    caption:
+      'Company detail. The session view shows the latest observation when historical prices are unavailable.',
+  },
+  {
+    src: '/images/stocklumo-comparison.webp',
+    alt: 'Stocklumo comparison of Apple and Microsoft by price change, market cap, price-to-earnings ratio, and dividend yield',
+    caption:
+      'Stock comparison. The latest-snapshot view keeps quote times and metric units visible.',
+  },
+  {
+    src: '/images/stocklumo-practice-portfolio.webp',
+    alt: 'Stocklumo virtual portfolio with four practice holdings, allocation, and unrealized gains',
+    caption:
+      'Virtual portfolio. Example holdings show allocation and unrealized gain or loss in USD.',
+  },
+  {
+    src: '/images/stocklumo-earnings.webp',
+    alt: 'Stocklumo earnings calendar with date filters and a timeline comparing estimated and reported earnings per share',
+    caption:
+      'Earnings calendar. Announcement groups show estimates, reported results, and unavailable values.',
+  },
+  {
+    src: '/images/stocklumo-footer.webp',
+    alt: 'Stocklumo footer with research navigation, data attribution, privacy controls, and a motion setting',
+    caption:
+      'Site footer. Research links sit alongside data attribution, privacy settings, and the motion control.',
+  },
+];
 
 export const stocklumo: Project = {
   id: 'stocklumo',
@@ -27,14 +86,8 @@ export const stocklumo: Project = {
     'Docker',
     'Render',
   ],
-  gallery: [
-    {
-      src: screenshot,
-      alt: 'Stocklumo Markets page showing the quote ticker, daily stock selection, and price changes',
-      caption: 'Markets view captured from the deployed app. Prices reflect the time of capture.',
-    },
-  ],
-  cardImage: screenshot,
+  gallery,
+  cardImage: gallery[0].src,
   liveUrl: 'https://stocklumo.onrender.com/',
   githubUrl: repository,
   caseStudy: '/case-studies/stocklumo',
@@ -44,6 +97,7 @@ export const stocklumo: Project = {
     'Live prices with quote timestamps and stale-data indicators',
     'Company search, stock pages, interactive charts, and publisher-linked news',
     'Watchlist, recently viewed stocks, and theme preferences stored in the browser',
+    'Stock screener, side-by-side comparison, virtual portfolio, and earnings calendar',
     'Responsive interface with keyboard-accessible search and chart controls',
   ],
   technical: [
@@ -55,6 +109,14 @@ export const stocklumo: Project = {
     {
       label: 'Market data implementation',
       url: `${repository}/blob/${revision}/MarketDesk/Services/FinnhubFeed.cs`,
+    },
+    {
+      label: 'Research endpoints',
+      url: `${repository}/blob/${revision}/MarketDesk/Controllers/ResearchController.cs`,
+    },
+    {
+      label: 'Research interface code',
+      url: `${repository}/tree/${revision}/MarketDesk/wwwroot/js/research`,
     },
     { label: 'Backend tests', url: `${repository}/tree/${revision}/MarketDesk.Tests` },
     { label: 'Frontend and browser tests', url: `${repository}/tree/${revision}/tests` },
@@ -70,12 +132,36 @@ export const stocklumoCaseSections = [
     'I built Stocklumo so someone following a handful of companies could move from a price change to the chart, company profile, or source article without leaving the workflow. I implemented the market-data pipeline, the Razor and JavaScript interface, automated tests, and the deployment to Render.',
   ],
   [
+    'From the dashboard to a company',
+    'I separated three numbers that are easy to confuse: companies in the eligible symbol catalogue, stocks in the daily spotlight, and spotlight stocks with quotes available. The fixed ticker stays separate from the daily selection, though both use the same quote and subscription infrastructure. The dashboard averages available spotlight changes against the previous close, and labels which selection the figure describes. A reader can open an individual company to see its quote age, profile, and day and 52-week ranges.',
+  ],
+  [
     'One provider connection, multiple browsers',
-    'I used one shared Finnhub WebSocket so opening another tab would not open another provider connection. The server tracks which stock symbols browsers need and distributes price snapshots through server-sent events. It releases unused subscriptions, reconnects when the feed drops, and can combine several trades into one UI update.',
+    'The ASP.NET Core server uses Finnhub REST endpoints for snapshots, company information, news, and research data. One shared WebSocket receives trades, and reference counts let multiple views follow the same symbol without opening separate provider connections. The server releases unused subscriptions, reconnects and resubscribes after a drop, and sends browser snapshots through server-sent events. Several trades may be combined into one UI update.',
   ],
   [
     'Making data limits visible',
-    'The interface distinguishes feed connectivity, market hours, and quote freshness. When historical candles are unavailable under the provider plan, users can still inspect the session chart built from trades received while the page is open. Search and chart controls work with a keyboard, and watchlist entries persist across reloads in the same browser.',
+    'The interface reports feed connectivity, market hours, and quote freshness separately. An open connection can still carry an older quote, especially after hours. When the provider plan does not return historical candles, the session view can display observations received during the visit. A single observation appears as a latest quote because a trend needs at least two points.',
+  ],
+  [
+    'Screening and comparing stocks',
+    'The screener filters and sorts a curated set of 12 US companies by values such as price, industry, market cap, and average volume. The table and charts use the same filtered companies. Comparison accepts two to five symbols and labels the units and quote times for each. When historical data is available, the chart aligns the common dates and rebases closes to 100. The public snapshot shown in the gallery instead compares fundamentals and price changes against each stock’s previous close.',
+  ],
+  [
+    'Valuing a practice portfolio',
+    'A practice lot records its symbol, purchase date, quantity, and purchase price. The app uses eligible quotes to calculate cost basis, latest value, unrealized gain or loss, and allocation. Totals stay grouped by currency, and missing or pre-purchase quotes can leave a total incomplete. The holdings are hypothetical, stored in the browser, and used for practice only.',
+  ],
+  [
+    'Earnings and publisher-linked news',
+    'The calendar groups earnings by announcement date and keeps fiscal reporting periods separate. It displays estimated and reported earnings per share side by side, preserving the difference between a missing value and zero. The news page adds publisher attribution and timestamps and sends readers to the original article.',
+  ],
+  [
+    'Keeping the workspace in the browser',
+    'Watchlists, recent stocks, practice holdings, and preferences remain in browser storage. The watchlist supports reordering and removal and shows quote age next to price. The backup flow exports local data and validates a selected file before showing what it will replace. A separate confirmation applies the restore.',
+  ],
+  [
+    'Designing for different ways to use it',
+    'I used Razor for the page structure and JavaScript for updates such as search, chart inspection, and research filters. Search supports keyboard navigation, and chart inspection is available through keyboard and pointer controls where a series is available. Both themes preserve price signs and labels alongside color. The footer makes data attribution, privacy settings, and the motion control available across pages.',
   ],
   [
     'Protecting credentials and shared capacity',
@@ -83,10 +169,10 @@ export const stocklumoCaseSections = [
   ],
   [
     'Testing the failure paths',
-    'Backend tests exercise provider throttling, credential isolation, stream cleanup, and admission limits. JavaScript and Playwright tests cover search, charts, watchlist persistence, and responsive layouts. The browser tests use controlled fixtures to reproduce unavailable, stale, and delayed data. The linked GitHub Actions run passed for the 18 November 2026 release, including the backend, frontend, browser, and runtime image checks.',
+    'Backend tests cover provider throttling, credential isolation, stream cleanup, and admission limits. JavaScript tests exercise research calculations and rendering, including incomplete valuations. Playwright uses controlled fixtures for unavailable, stale, and delayed data and checks search, charts, watchlist persistence, and backup restore across desktop, Android Chromium, and iPhone WebKit profiles. The linked 18 November 2026 release run passed the backend, frontend, browser, and runtime image checks.',
   ],
   [
     'Development and release history',
-    'The public history shows how the project evolved from quote tracking into an application with a shared feed, reusable frontend modules, and repeatable release checks. The linked rate-limit pull request shows a production change from implementation through review and verification. Render deploys from main after the required checks pass.',
+    'Stocklumo grew from quote tracking into a research workspace. I separated chart rendering, feed handling, and page-specific research logic so those behaviors could be maintained and tested independently. The linked rate-limit pull request records a later production change and its verification. GitHub Actions builds and checks the Docker image and runs the test suites before Render deploys from main.',
   ],
 ] as const;
