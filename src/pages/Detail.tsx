@@ -202,6 +202,14 @@ export default function Detail({ caseStudy = false }: { caseStudy?: boolean }) {
           </div>
         )}
       </section>
+      {project.galleryInvite && project.liveUrl && !project.liveUnavailable && (
+        <div>
+          <p>{project.galleryInvite}</p>
+          <ExternalLink className="button primary" href={project.liveUrl}>
+            Visit {project.title}
+          </ExternalLink>
+        </div>
+      )}
       <section className="related-projects">
         <h2>Keep exploring</h2>
         <div className="project-grid">

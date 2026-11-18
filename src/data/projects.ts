@@ -18,6 +18,7 @@ export interface Project {
   image?: string;
   cardImage?: string;
   gallery: GalleryImage[];
+  galleryInvite?: string;
   liveUrl?: string;
   liveUnavailable?: boolean;
   githubUrl: string;

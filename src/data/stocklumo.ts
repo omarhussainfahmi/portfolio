@@ -4,6 +4,16 @@ const repository = 'https://github.com/omarhussainfahmi/stocklumo';
 const revision = 'a6c4d71fc4505277419e7ba26ef1833060d24064';
 const gallery: Project['gallery'] = [
   {
+    src: '/images/stocklumo-home-dark.webp',
+    alt: 'Stocklumo homepage in dark mode with stock search and links to Markets and Watchlist',
+    caption: 'Homepage in dark mode.',
+  },
+  {
+    src: '/images/stocklumo-home-light.webp',
+    alt: 'Stocklumo homepage in light mode with stock search and links to Markets and Watchlist',
+    caption: 'Homepage in light mode.',
+  },
+  {
     src: '/images/stocklumo-market-overview.webp',
     alt: 'Stocklumo dashboard with market coverage, a daily stock snapshot, and research links',
     caption:
@@ -24,6 +34,11 @@ const gallery: Project['gallery'] = [
     alt: 'Stocklumo news page in light mode with publisher names, timestamps, and article summaries',
     caption:
       'News. Publisher attribution and timestamps give readers context before they open a story.',
+  },
+  {
+    src: '/images/stocklumo-explore.webp',
+    alt: 'Stocklumo Markets grid with company symbols, prices, quote timestamps, and a More stocks button',
+    caption: 'Explore stocks. Open a company from the grid or load more symbols.',
   },
   {
     src: '/images/stocklumo-screener.webp',
@@ -87,7 +102,8 @@ export const stocklumo: Project = {
     'Render',
   ],
   gallery,
-  cardImage: gallery[0].src,
+  cardImage: '/images/stocklumo-market-overview.webp',
+  galleryInvite: 'Explore the markets, look up a company, or build a watchlist in the live app.',
   liveUrl: 'https://stocklumo.onrender.com/',
   githubUrl: repository,
   caseStudy: '/case-studies/stocklumo',

@@ -19,7 +19,7 @@ test('Stocklumo is featured in both views and leads reviewers to the case study'
   await page.getByRole('button', { name: 'Recruiter mode', exact: true }).click();
   await card.getByRole('link', { name: 'View details' }).click();
   await expect(page).toHaveURL(/\/projects\/stocklumo\/?$/);
-  await expect(page.locator('.project-gallery figure')).toHaveCount(10);
+  await expect(page.locator('.project-gallery figure')).toHaveCount(13);
   await page.getByRole('link', { name: 'View case study' }).click();
   await expect(page).toHaveURL(/\/case-studies\/stocklumo\/?$/);
   await expect(page.getByRole('heading', { name: 'Testing the failure paths' })).toBeVisible();
@@ -31,7 +31,7 @@ test('Stocklumo is featured in both views and leads reviewers to the case study'
     'href',
     'https://github.com/omarhussainfahmi/stocklumo/actions/runs/44383902755',
   );
-  await expect(page.locator('.project-gallery figure')).toHaveCount(10);
+  await expect(page.locator('.project-gallery figure')).toHaveCount(13);
   const image = page.getByRole('img', { name: /^Stocklumo dashboard/ });
   await image.scrollIntoViewIfNeeded();
   await expect
@@ -51,7 +51,14 @@ test('all supplied gallery assets load and open at full size', async ({ page, re
   const sources = await images.evaluateAll((items) =>
     items.map((item) => (item as HTMLImageElement).src),
   );
-  expect(new Set(sources).size).toBe(10);
+  expect(new Set(sources).size).toBe(13);
+  expect(sources[0]).toMatch(/stocklumo-home-dark\.webp$/);
+  expect(sources[1]).toMatch(/stocklumo-home-light\.webp$/);
+  expect(sources[6]).toMatch(/stocklumo-explore\.webp$/);
+  await expect(page.getByRole('link', { name: 'Visit Stocklumo' })).toHaveAttribute(
+    'href',
+    'https://stocklumo.onrender.com/',
+  );
   await Promise.all(
     sources.map(async (url) => {
       const response = await request.get(url);
